@@ -13,6 +13,8 @@ from lib.mask import mask_pii  # noqa: E402
 from lib.seed import BANNED_WORDS, load_seed, validate_seed  # noqa: E402
 
 SEED_PATH = os.path.join(ROOT, "data", "seed.json")
+with open(os.path.join(ROOT, "tests", "fictional_brands.json"), encoding="utf-8") as f:
+    FICTIONAL_BRANDS = json.load(f)
 
 
 def base_input(**kw):
@@ -25,6 +27,7 @@ class CalcExampleTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.seed, _ = load_seed(SEED_PATH)
+        cls.seed["brands"] = FICTIONAL_BRANDS
 
     def test_design_example(self):
         r = calc.estimate(self.seed, base_input())
@@ -193,7 +196,8 @@ class SeedValidationTests(unittest.TestCase):
         self.assertEqual(sum(1 for v in levels.values() if v == 0), 15)
         self.assertEqual(len(s["brands"]), 8)
         for b in s["brands"]:
-            self.assertTrue(b["name"].startswith("예시 브랜드"))
+            self.assertFalse(b["is_fictional"])
+            self.assertTrue(b["opening"]["items"])
         mw = s["constants"]["min_wage"]
         self.assertEqual((mw["hourly_won"], mw["monthly_won"], mw["hours_per_month"]), (10320, 2156880, 209))
         self.assertEqual(mw["status"], "조건부")
@@ -226,11 +230,17 @@ class SeedValidationTests(unittest.TestCase):
         self.assertTrue(any("아마도" in e for e in errors))
         self.assertTrue(any("src_nope" in e for e in errors))
 
-    def test_real_brand_name_is_error(self):
+    def test_real_brand_without_opening_error(self):
         s = self.fresh()
-        s["brands"][0]["name"] = "어떤 실제 브랜드"
+        del s["brands"][0]["opening"]
         errors, _ = validate_seed(s)
-        self.assertTrue(any("예시 브랜드" in e for e in errors))
+        self.assertTrue(any("개설비" in e for e in errors))
+
+    def test_opening_total_must_match_items(self):
+        s = self.fresh()
+        s["brands"][0]["opening"]["total"]["high"] += 1
+        errors, _ = validate_seed(s)
+        self.assertTrue(any("합계" in e for e in errors))
 
     def test_forbidden_numbers_warn(self):
         s = self.fresh()
@@ -261,6 +271,7 @@ class RecommendCalcTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.seed, _ = load_seed(SEED_PATH)
+        cls.seed["brands"] = FICTIONAL_BRANDS
 
     def test_classify_fit_boundaries(self):
         self.assertEqual(calc.classify_fit(1000, (500, 1000))[0], "ok")
@@ -339,9 +350,9 @@ class SeedExpansionTests(unittest.TestCase):
 
     def test_new_seed_content(self):
         s = self.fresh()
-        self.assertEqual([b["name"][:8] for b in s["brands"]],
-                         ["예시 브랜드 %s" % c for c in "가나다라마바사아"])
-        self.assertIsNone([b for b in s["brands"] if b["id"] == "brand_d"][0]["startup_cost"])
+        self.assertEqual([b["name"] for b in s["brands"]],
+                         ["교촌치킨", "죠스떡볶이", "메가MGC커피", "투웨이버거",
+                          "한솥", "파리바게뜨", "역전할머니맥주", "이삭토스트"])
         deposits = dict((r["code"], r["deposit_range"]) for r in s["regions"])
         self.assertIsNotNone(deposits["seoul"])
         self.assertIsNotNone(deposits["gyeonggi"])
@@ -354,9 +365,10 @@ class SeedExpansionTests(unittest.TestCase):
 
     def test_bad_logo_and_startup_and_district_rules(self):
         s = self.fresh()
+        s["brands"] = copy.deepcopy(FICTIONAL_BRANDS)
         s["brands"][0]["logo_hint"]["shape"] = "star"
         self.assertTrue(any("logo_hint" in e for e in validate_seed(s)[0]))
-        s = self.fresh()
+        s["brands"][0]["logo_hint"]["shape"] = "circle"
         del s["brands"][0]["startup_cost"]["interior"]
         self.assertTrue(any("startup_cost" in e for e in validate_seed(s)[0]))
         s = self.fresh()
@@ -369,6 +381,7 @@ class SeedExpansionTests(unittest.TestCase):
         s["regions"][0]["districts"][0]["overrides"] = {"hack": 1}
         self.assertTrue(any("hack" in e for e in validate_seed(s)[0]))
         s = self.fresh()
+        s["brands"] = copy.deepcopy(FICTIONAL_BRANDS)
         s["brands"][0]["startup_cost"]["other"]["status"] = None
         self.assertTrue(any("status" in e for e in validate_seed(s)[0]))
 

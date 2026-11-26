@@ -3,6 +3,7 @@
 규칙을 어기면 SeedError를 일으키고, server.py가 한국어로 출력한 뒤 켜지지 않습니다.
 """
 import json
+from urllib.parse import urlsplit
 
 ALLOWED_STATUS = ("확인됨", "조건부", "미확인", "가상 예시(개발용, 출처 미확인)")
 STATUS_DEV = "가상 예시(개발용, 출처 미확인)"
@@ -50,6 +51,7 @@ def validate_seed(seed):
         return errors, warnings
 
     source_ids = set()
+    sources = {}
     for i, s in enumerate(seed["sources"]):
         if not isinstance(s, dict) or "id" not in s:
             errors.append("sources[%d]에 id가 없어요." % i)
@@ -57,6 +59,7 @@ def validate_seed(seed):
             errors.append("sources에 같은 id '%s'가 두 번 있어요." % s["id"])
         else:
             source_ids.add(s["id"])
+            sources[s["id"]] = s
 
     dev_used = [False]
 
@@ -175,10 +178,12 @@ def validate_seed(seed):
         if b["id"] in seen:
             errors.append("%s: 브랜드 id '%s'가 중복이에요." % (lab, b["id"]))
         seen.add(b["id"])
-        if not str(b.get("name", "")).startswith("예시 브랜드"):
-            errors.append("%s: 브랜드 이름은 '예시 브랜드'로 시작해야 해요. 실제 브랜드명은 쓰지 않아요." % lab)
-        if b.get("is_fictional") is not True:
-            errors.append("%s: is_fictional이 true여야 해요." % lab)
+        name = b.get("name")
+        fictional = b.get("is_fictional")
+        if not isinstance(name, str) or not name.strip() or not isinstance(fictional, bool):
+            errors.append("%s: 브랜드 이름과 is_fictional 값이 필요해요." % lab)
+        elif fictional and not name.startswith("예시 브랜드"):
+            errors.append("%s: 가상 브랜드 이름은 '예시 브랜드'로 시작해야 해요." % lab)
         lv = b.get("accuracy_level")
         if not isinstance(lv, int) or isinstance(lv, bool) or not 0 <= lv <= 3:
             errors.append("%s: accuracy_level은 0~3 정수여야 해요." % lab)
@@ -191,6 +196,41 @@ def validate_seed(seed):
         if st is not None:
             if not isinstance(st, dict) or any(k not in st for k in STARTUP_KEYS):
                 errors.append("%s: startup_cost에는 %s 항목이 모두 있어야 해요. (자료가 없으면 startup_cost 전체를 null로)" % (lab, ", ".join(STARTUP_KEYS)))
+        if fictional is False:
+            opening = b.get("opening")
+            if not isinstance(opening, dict) or not all(
+                isinstance(opening.get(k), str) and opening[k].strip() for k in ("area", "tax", "note")
+            ):
+                errors.append(f"{lab}: 개설비의 면적, 부가세 기준, 안내가 필요해요.")
+                continue
+            total, items = opening.get("total"), opening.get("items")
+            if not isinstance(total, dict) or not isinstance(items, list) or not items or not all(
+                isinstance(item, dict) and isinstance(item.get("label"), str) and item["label"].strip()
+                for item in items
+            ):
+                errors.append(f"{lab}: 개설비 합계와 세부 항목이 필요해요.")
+                continue
+            amounts = [total, *items]
+            if opening.get("monthly_royalty") is not None:
+                royalty = opening["monthly_royalty"]
+                if not isinstance(royalty, dict) or not isinstance(royalty.get("tax"), str) or not royalty["tax"].strip():
+                    errors.append(f"{lab}: 월 로열티의 부가세 기준이 필요해요.")
+                    continue
+                amounts.append(royalty)
+            for amount in amounts:
+                src = sources.get(amount.get("source_id"), {})
+                url = urlsplit(src.get("url") or "")
+                if (url.scheme != "https" or not url.netloc or not src.get("checked_at")
+                        or amount.get("unit") != "만 원" or amount.get("status") not in ("조건부", "확인됨")
+                        or not all(_is_number(amount.get(k)) for k in ("low", "high"))):
+                    errors.append(f"{lab}: 공개 금액에는 확인일과 HTTPS 출처가 필요해요.")
+            for bound in ("low", "high"):
+                if all(_is_number(item.get(bound)) for item in [total, *items]):
+                    if abs(sum(item[bound] for item in items) - total[bound]) > 0.000001:
+                        errors.append(f"{lab}: 개설비 합계가 항목별 금액의 합과 달라요.")
+            disclosure_id = opening.get("disclosure_source_id")
+            if disclosure_id and disclosure_id not in sources:
+                errors.append(f"{lab}: 정보공개서 출처를 찾을 수 없어요.")
 
     seen = set()
     for i, lv_ in enumerate(seed["royalty_levels"]):

@@ -128,6 +128,30 @@ def startup_range(brand, deposit_obj):
     return (_floor(lo), _ceil(hi)), objs
 
 
+def published_opening(seed, brand):
+    opening = brand.get("opening") if brand else None
+    if not opening:
+        return None
+
+    def source(source_id):
+        record = _find(seed["sources"], "id", source_id)
+        return {k: record.get(k) for k in ("name", "url", "year", "checked_at")} if record else None
+
+    def public_amount(amount):
+        return {k: amount[k] for k in ("low", "high", "unit")}
+
+    total = opening["total"]
+    report = {k: opening[k] for k in ("area", "tax", "note")}
+    report["total"] = public_amount(total)
+    report["source"] = source(total["source_id"])
+    report["disclosure"] = source(opening.get("disclosure_source_id"))
+    report["items"] = [dict(public_amount(item), label=item["label"]) for item in opening["items"]]
+    royalty = opening.get("monthly_royalty")
+    report["monthly_royalty"] = dict(public_amount(royalty), tax=royalty["tax"],
+                                     source=source(royalty["source_id"])) if royalty else None
+    return report
+
+
 def classify_fit(capital, rng):
     """(fit, gap). 자본 >= high: ok, low <= 자본 < high: tight, 자본 < low: short."""
     if rng is None or capital is None:
@@ -260,7 +284,8 @@ def estimate(seed, inp):
 
     # --- 창업 필요 자금 / 자본 적합도 (브랜드를 골랐을 때만) ---
     startup = None
-    if brand is not None:
+    opening = published_opening(seed, brand)
+    if brand is not None and opening is None:
         dep_obj, dep_path, dep_used = _pick_geo(region, district, "deposit_range")
         if dep_used:
             district_used[0] = True
@@ -273,7 +298,8 @@ def estimate(seed, inp):
         else:
             trace.append({"item": "창업 필요 자금(합계)", "seed_path": "brands.%s.startup_cost + %s" % (brand["id"], dep_path),
                           "source_name": None, "year": None, "status": "자료 없음"})
-    fit, gap = classify_fit(inp.get("capital"), startup)
+    comparison = _range_of(opening["total"]) if opening else startup
+    fit, gap = classify_fit(inp.get("capital"), comparison)
 
     # --- 지역 정보 ---
     if district is None:
@@ -301,6 +327,8 @@ def estimate(seed, inp):
         "trace": trace,
         "geo": geo,
         "startup_cost": ({"low": startup[0], "high": startup[1], "unit": UNIT_MAN} if startup else None),
+        "opening_cost": opening,
+        "fit_basis": "published_opening" if opening else "estimated_startup",
         "fit": fit,
         "gap": gap,
     }

@@ -335,8 +335,10 @@
       compact ? null : h('p', { className: 'ms-chart__summary' }, o.estimate === false ? null : h(Badge, { tone: 'estimate' }), o.estimate === false ? null : ' ', h('b', null, range(low, high)), hasM ? ' / ' + (o.markerName || '내 값') + ' ' : '', hasM ? h('b', null, manWon(m)) : null, ' ', statusText));
   }
   function CapitalFitBar(p) {
-    return RangeMarker({ low: p.low, high: p.high, marker: p.myCapital, max: p.max, title: p.title || '필요 자본', rangeName: '필요 자본', markerName: '내 자본', lowName: '최소', highName: '최대', compact: p.compact, estimate: p.estimate, className: p.className,
-      texts: { above: '내 자본이 필요 자본 범위보다 많아요.', inside: '내 자본이 필요 자본 범위 안에 있어 빠듯할 수 있어요.', below: '내 자본이 필요 자본 범위보다 적어요.' } });
+    var label = p.rangeName || '필요 자본';
+    return RangeMarker({ low: p.low, high: p.high, marker: p.myCapital, max: p.max, title: p.title || label, rangeName: label, markerName: '내 자본', lowName: '최소', highName: '최대', compact: p.compact, estimate: p.estimate, className: p.className,
+      texts: p.rangeName ? { above: '내 자본이 공개 비용 상한 이상이에요.', inside: '내 자본이 공개 비용 범위 안에 있어요.', below: '내 자본이 공개 비용 하한보다 적어요.' }
+        : { above: '내 자본이 필요 자본 범위보다 많아요.', inside: '내 자본이 필요 자본 범위 안에 있어 빠듯할 수 있어요.', below: '내 자본이 필요 자본 범위보다 적어요.' } });
   }
   function BreakevenGauge(p) {
     return RangeMarker({ low: p.low, high: p.high, marker: p.assumed, max: p.max, title: p.title || '손익분기 월 매출', rangeName: '손익분기 월 매출', markerName: '내 가정 매출', lowName: '최소', highName: '최대', compact: p.compact, estimate: p.estimate, className: p.className,
@@ -464,10 +466,11 @@
     return h('article', { className: cx('ms-brand', clickable && 'ms-brand--click', p.selected && 'ms-brand--selected', p.className) },
       h('div', { className: 'ms-brand__head' }, p.logo || h(ShapeLogo, { shape: 'circle', tone: 'brand', initial: (p.name || '?').charAt(0) }),
         h('div', { className: 'ms-brand__id' }, nameEl, p.category ? h(Badge, { tone: 'neutral' }, p.category) : null)),
-      h('div', null, h(Badge, { tone: st.tone, size: 'md' }, st.text), p.selected ? h('span', { className: 'ms-brand__sel' }, ' · 선택됨') : null),
-      h('div', { className: 'ms-brand__row' }, h('span', { className: 'ms-brand__k' }, '필요 자본 ', hasCap ? h(Badge, { tone: 'estimate' }) : null),
-        hasCap ? h('span', { className: 'ms-brand__v' }, range(p.capital.low, p.capital.high)) : h('span', { className: 'ms-brand__v--missing' }, '자료 부족'),
-        hasCap ? h(CapitalFitBar, { low: p.capital.low, high: p.capital.high, myCapital: p.myCapital, max: p.scaleMax, compact: true, title: p.name + ' 필요 자본' }) : null,
+      h('div', null, h(Badge, { tone: st.tone, size: 'md' }, p.statusText || st.text), p.selected ? h('span', { className: 'ms-brand__sel' }, ' · 선택됨') : null),
+      h('div', { className: 'ms-brand__row' }, h('span', { className: 'ms-brand__k' }, (p.capitalLabel || '필요 자본') + ' ', hasCap && !p.capitalLabel ? h(Badge, { tone: 'estimate' }) : null),
+        hasCap ? h('span', { className: 'ms-brand__v' }, p.capitalText || range(p.capital.low, p.capital.high)) : h('span', { className: 'ms-brand__v--missing' }, '자료 부족'),
+        p.capitalNote ? h('span', { className: 'ms-brand__k' }, p.capitalNote) : null,
+        hasCap ? h(CapitalFitBar, { low: p.capital.low, high: p.capital.high, myCapital: p.myCapital, max: p.scaleMax, compact: true, rangeName: p.capitalLabel }) : null,
         hasCap && isNum(p.myCapital) ? h('span', { className: 'ms-brand__k' }, '내 자본 ' + manWon(p.myCapital)) : null),
       h('div', { className: 'ms-brand__row' }, h('span', { className: 'ms-brand__k' }, '월 순수익 ', hasNet ? h(Badge, { tone: 'estimate' }) : null),
         hasNet ? h('span', { className: 'ms-brand__v' }, range(p.netProfit.low, p.netProfit.high)) : h('span', { className: 'ms-brand__v--missing' }, '자료 부족')));

@@ -14,12 +14,15 @@ import server  # noqa: E402
 from lib.seed import BANNED_WORDS, load_seed  # noqa: E402
 
 SEED, _ = load_seed(os.path.join(ROOT, "data", "seed.json"))
+with open(os.path.join(ROOT, "tests", "fictional_brands.json"), encoding="utf-8") as f:
+    FIXTURE_SEED = dict(SEED, brands=json.load(f))
 SID = "sess-aaaa-1111"
 SID2 = "sess-bbbb-2222"
 
 
 class ApiTestCase(unittest.TestCase):
     with_public = True
+    seed = FIXTURE_SEED
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp(prefix="miri_test_")
@@ -34,7 +37,7 @@ class ApiTestCase(unittest.TestCase):
         # 폴더 밖에 비밀 파일을 두고 새어 나가지 않는지 확인
         with open(os.path.join(self.tmp, "secret.txt"), "w", encoding="utf-8") as f:
             f.write("TOP-SECRET")
-        self.httpd = server.make_server(0, SEED, self.store_dir, self.public_dir)
+        self.httpd = server.make_server(0, self.seed, self.store_dir, self.public_dir)
         self.port = self.httpd.server_address[1]
         self.thread = threading.Thread(target=self.httpd.serve_forever, kwargs={"poll_interval": 0.02}, daemon=True)
         self.thread.start()
@@ -426,8 +429,8 @@ class RecommendTests(ApiTestCase):
         self.assertEqual(last["summary"]["status"], "insufficient")
         self.assertIsNone(last["summary"]["profit"])
         card = r["brands"][0]
-        self.assertEqual(set(card.keys()), {"id", "name", "industry", "logo_hint", "startup_cost", "fit", "gap",
-                                            "summary", "data_status"})
+        self.assertEqual(set(card.keys()), {"id", "name", "industry", "logo_hint", "startup_cost", "opening_cost",
+                                            "fit_basis", "fit", "gap", "summary", "data_status"})
         self.assertIn(card["logo_hint"]["shape"], ("circle", "square", "triangle", "diamond", "hexagon"))
         self.assertIn(card["logo_hint"]["tone"], ("orange", "lavender", "sage", "black"))
         self.assertEqual(set(card["summary"].keys()), {"status", "profit", "breakeven", "missing"})
@@ -595,6 +598,28 @@ class StaticTests(ApiTestCase):
             status, ctype, _ = self.request("GET", "/" + name)
             self.assertEqual(status, 200)
             self.assertIn(expected, ctype)
+
+
+class PublishedBrandTests(ApiTestCase):
+    seed = SEED
+
+    def test_public_opening_cost_is_available_without_regional_estimates(self):
+        payload = {"region": "busan", "capital": 7500, "staff": 1}
+        status, recommendations = self.post("/api/recommend", payload)
+        self.assertEqual(status, 200)
+        self.assertEqual(len(recommendations["brands"]), 8)
+        mega = next(brand for brand in recommendations["brands"] if brand["id"] == "mega_mgc")
+        self.assertEqual(mega["fit"], "ok")
+        self.assertEqual(mega["fit_basis"], "published_opening")
+        self.assertIsNone(mega["startup_cost"])
+        self.assertEqual(mega["opening_cost"]["total"]["low"], 7423.55)
+        self.assertEqual(mega["opening_cost"]["monthly_royalty"]["low"], 16.5)
+        self.assertTrue(mega["opening_cost"]["source"]["url"].startswith("https://"))
+        status, estimate = self.post("/api/estimate", dict(payload, brand_id=mega["id"]))
+        self.assertEqual(status, 200)
+        self.assertEqual(estimate["opening_cost"], mega["opening_cost"])
+        self.assertIsNone(estimate["profit"])
+        self.assertIsNone(estimate["breakeven"])
 
 
 class NoPublicFolderTests(ApiTestCase):

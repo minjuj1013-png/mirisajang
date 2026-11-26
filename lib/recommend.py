@@ -16,7 +16,9 @@ def recommend(seed, inp):
         geo = est["geo"]
         data_notice = data_notice or est["data_notice"]
         # 창업 자금 범위나 순수익 계산 중 하나라도 자료가 없으면 '자료 부족' 묶음
-        insufficient = est["status"] == "insufficient" or est["startup_cost"] is None
+        insufficient = est["opening_cost"] is None and (
+            est["status"] == "insufficient" or est["startup_cost"] is None
+        )
         fit = None if insufficient else est["fit"]
         gap = None if insufficient else est["gap"]
         card = {
@@ -25,6 +27,8 @@ def recommend(seed, inp):
             "industry": brand.get("industry"),
             "logo_hint": dict(brand["logo_hint"]),
             "startup_cost": est["startup_cost"],
+            "opening_cost": est["opening_cost"],
+            "fit_basis": est["fit_basis"],
             "fit": fit,
             "gap": gap,
             "summary": {

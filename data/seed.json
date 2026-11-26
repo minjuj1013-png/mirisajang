@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "0.2-dev",
+    "version": "0.3-brand-data",
     "is_dev_data": true,
     "updated_at": "2026-11-26",
-    "dev_notice": "시험용 가상 데이터로 계산했어요. 실제 창업 판단에 쓰지 마세요."
+    "dev_notice": "지역 매출·임대료와 재료비 등 시뮬레이션 가정에는 시험용 값이 남아 있어요."
   },
   "sources": [
     {
@@ -23,6 +23,87 @@
       "year": null,
       "checked_at": null,
       "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    {
+      "id": "mega_disclosure",
+      "name": "메가MGC커피 정보공개서 (2026.01.28 등록본)",
+      "publisher": "(주)엠지씨글로벌",
+      "url": "https://assa-franchise.s3.amazonaws.com/franchise_292586.pdf",
+      "year": 2026,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "kyochon_1_opening",
+      "name": "교촌치킨 본사 개설비용",
+      "publisher": "교촌에프앤비(주)",
+      "url": "https://www.kyochonfnb.com/business/domestic.do",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "jaws_2_opening",
+      "name": "죠스떡볶이 본사 개설비용",
+      "publisher": "(주)죠스푸드",
+      "url": "https://www.jawsfood.co.kr/m/franchise/open/cost.html",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "mega_mgc_3_opening",
+      "name": "메가MGC커피 본사 개설비용",
+      "publisher": "(주)엠지씨글로벌",
+      "url": "https://www.mega-mgccoffee.com/startup/cost/",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "twoway_4_opening",
+      "name": "투웨이버거 본사 개설비용",
+      "publisher": "(주)나이스웨이",
+      "url": "https://www.twowayburger.com/",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "hansot_5_opening",
+      "name": "한솥 본사 개설비용",
+      "publisher": "(주)한솥",
+      "url": "https://franchise.hsd.co.kr/Process?mode=policy",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "paris_baguette_6_opening",
+      "name": "파리바게뜨 본사 개설비용",
+      "publisher": "(주)파리크라상",
+      "url": "https://www.paris.co.kr/franchise/opening-costs/",
+      "year": 2025,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "halmaek_7_opening",
+      "name": "역전할머니맥주 본사 개설비용",
+      "publisher": "(주)역전에프앤씨",
+      "url": "https://www.yeokjeonfnc.com/html/fran.html",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
+    },
+    {
+      "id": "isaac_toast_8_opening",
+      "name": "이삭토스트 본사 개설비용",
+      "publisher": "(주)이삭",
+      "url": "https://isaac-toast.co.kr/membership/costs.php",
+      "year": null,
+      "checked_at": "2026-11-26",
+      "status": "확인됨"
     }
   ],
   "constants": {
@@ -773,556 +854,810 @@
   ],
   "brands": [
     {
-      "id": "brand_a",
-      "name": "예시 브랜드 가 (치킨)",
-      "is_fictional": true,
-      "accuracy_level": 2,
-      "royalty_rate": {
-        "low": 2,
-        "high": 4,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 3,
-        "high": 6,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 0,
-        "high": 0,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
+      "id": "kyochon",
+      "name": "교촌치킨",
+      "is_fictional": false,
       "industry": "치킨",
       "logo_hint": {
         "shape": "circle",
         "tone": "orange"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 1000,
-          "high": 1500,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "표준형 66㎡",
+        "tax": "본사 표에 부가세 기준 미표기",
+        "note": "본사 공개 항목을 합산했어요. 인테리어 비용은 실측 후 달라질 수 있어요.",
+        "total": {
+          "low": 11650.7,
+          "high": 13923.7,
           "unit": "만 원",
+          "source_id": "kyochon_1_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         },
-        "education": {
-          "low": 200,
-          "high": 300,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 3000,
-          "high": 5000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 1500,
-          "high": 2500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 500,
-          "high": 1000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        }
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 660,
+            "high": 660,
+            "unit": "만 원",
+            "source_id": "kyochon_1_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 355,
+            "high": 355,
+            "unit": "만 원",
+            "source_id": "kyochon_1_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "계약이행보증금",
+            "low": 1000,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "kyochon_1_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어·POS·주방용품",
+            "low": 9635.7,
+            "high": 11908.7,
+            "unit": "만 원",
+            "source_id": "kyochon_1_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ]
       }
     },
     {
-      "id": "brand_b",
-      "name": "예시 브랜드 나 (분식)",
-      "is_fictional": true,
-      "accuracy_level": 2,
-      "royalty_rate": {
-        "low": 3,
-        "high": 5,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 0,
-        "high": 3,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 0,
-        "high": 0,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
+      "id": "jaws",
+      "name": "죠스떡볶이",
+      "is_fictional": false,
       "industry": "분식",
       "logo_hint": {
         "shape": "square",
         "tone": "sage"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 300,
-          "high": 500,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "33㎡ (10평형)",
+        "tax": "부가세 별도",
+        "note": "별도 공사와 선택형 키오스크는 합계에서 제외돼요.",
+        "total": {
+          "low": 7205,
+          "high": 7205,
           "unit": "만 원",
+          "source_id": "jaws_2_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         },
-        "education": {
-          "low": 100,
-          "high": 200,
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 1000,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 300,
+            "high": 300,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "계약이행금",
+            "low": 200,
+            "high": 200,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 2100,
+            "high": 2100,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "간판",
+            "low": 500,
+            "high": 500,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "매뉴얼",
+            "low": 300,
+            "high": 300,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "주방기기",
+            "low": 2140,
+            "high": 2140,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "가구",
+            "low": 175,
+            "high": 175,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "DID",
+            "low": 270,
+            "high": 270,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "POS",
+            "low": 120,
+            "high": 120,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "오픈 준비 물품",
+            "low": 100,
+            "high": 100,
+            "unit": "만 원",
+            "source_id": "jaws_2_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ],
+        "monthly_royalty": {
+          "tax": "부가세 별도",
+          "low": 20,
+          "high": 20,
           "unit": "만 원",
+          "source_id": "jaws_2_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 1500,
-          "high": 2500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 800,
-          "high": 1200,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 300,
-          "high": 500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         }
       }
     },
     {
-      "id": "brand_c",
-      "name": "예시 브랜드 다 (카페)",
-      "is_fictional": true,
-      "accuracy_level": 1,
-      "royalty_rate": {
-        "low": 5,
-        "high": 7,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 1,
-        "high": 3,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 10,
-        "high": 20,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
+      "id": "mega_mgc",
+      "name": "메가MGC커피",
+      "is_fictional": false,
       "industry": "카페",
       "logo_hint": {
         "shape": "triangle",
         "tone": "lavender"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 1000,
-          "high": 2000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "education": {
-          "low": 300,
-          "high": 500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 5000,
-          "high": 8000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 3000,
-          "high": 4500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 700,
-          "high": 1500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        }
-      }
-    },
-    {
-      "id": "brand_d",
-      "name": "예시 브랜드 라 (자료 없음 시험용)",
-      "is_fictional": true,
-      "accuracy_level": 0,
+      "accuracy_level": 1,
       "royalty_rate": null,
       "margin_rate": null,
       "fixed_monthly": null,
-      "industry": "일반 음식점",
+      "startup_cost": null,
+      "opening": {
+        "area": "33㎡ (10평)",
+        "tax": "부가세 별도",
+        "note": "가구·계약이행보증금·추가 공사·POS·키오스크는 별도예요. 등록본과 본사 안내의 인테리어·장비 금액이 달라 개설비는 본사 표를 적용했어요.",
+        "total": {
+          "low": 7423.55,
+          "high": 7423.55,
+          "unit": "만 원",
+          "source_id": "mega_mgc_3_opening",
+          "year": null,
+          "status": "조건부"
+        },
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 1000,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 500,
+            "high": 500,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "주방기기·기물",
+            "low": 3254.2,
+            "high": 3254.2,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 1500,
+            "high": 1500,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "설계·도면",
+            "low": 250,
+            "high": 250,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "간판·사인물",
+            "low": 511.2,
+            "high": 511.2,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "홍보물·비품",
+            "low": 87.15,
+            "high": 87.15,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "DID 메뉴보드",
+            "low": 321,
+            "high": 321,
+            "unit": "만 원",
+            "source_id": "mega_mgc_3_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ],
+        "monthly_royalty": {
+          "tax": "부가세 포함",
+          "low": 16.5,
+          "high": 16.5,
+          "unit": "만 원",
+          "source_id": "mega_disclosure",
+          "year": 2026,
+          "status": "조건부"
+        },
+        "disclosure_source_id": "mega_disclosure"
+      }
+    },
+    {
+      "id": "twoway",
+      "name": "투웨이버거",
+      "is_fictional": false,
+      "industry": "버거",
       "logo_hint": {
         "shape": "diamond",
         "tone": "black"
       },
-      "startup_cost": null
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "10–15평",
+        "tax": "부가세 별도",
+        "note": "POS·키오스크와 상가 임대보증금·권리금은 별도예요.",
+        "total": {
+          "low": 6700,
+          "high": 6700,
+          "unit": "만 원",
+          "source_id": "twoway_4_opening",
+          "year": null,
+          "status": "조건부"
+        },
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 1000,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 200,
+            "high": 200,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "가맹이행보증금",
+            "low": 300,
+            "high": 300,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 3500,
+            "high": 3500,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "간판·사인물",
+            "low": 600,
+            "high": 600,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "주방 설비·집기",
+            "low": 1100,
+            "high": 1100,
+            "unit": "만 원",
+            "source_id": "twoway_4_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ]
+      }
     },
     {
-      "id": "brand_e",
-      "name": "예시 브랜드 마 (한식)",
-      "is_fictional": true,
-      "accuracy_level": 2,
-      "royalty_rate": {
-        "low": 3,
-        "high": 5,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 2,
-        "high": 4,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 0,
-        "high": 0,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "industry": "한식",
+      "id": "hansot",
+      "name": "한솥",
+      "is_fictional": false,
+      "industry": "한식·도시락",
       "logo_hint": {
         "shape": "hexagon",
         "tone": "orange"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 800,
-          "high": 1200,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "13평",
+        "tax": "부가세 별도",
+        "note": "전기·가스 증설, 냉난방기, 소방, 렌탈장비, 철거는 별도예요.",
+        "total": {
+          "low": 8619,
+          "high": 8619,
           "unit": "만 원",
+          "source_id": "hansot_5_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         },
-        "education": {
-          "low": 150,
-          "high": 250,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 3500,
-          "high": 5500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 2000,
-          "high": 3000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 500,
-          "high": 800,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        }
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 600,
+            "high": 600,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 500,
+            "high": 500,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "계약이행보증금",
+            "low": 400,
+            "high": 400,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 4045,
+            "high": 4045,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "장비",
+            "low": 2824,
+            "high": 2824,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "감리비",
+            "low": 250,
+            "high": 250,
+            "unit": "만 원",
+            "source_id": "hansot_5_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ]
       }
     },
     {
-      "id": "brand_f",
-      "name": "예시 브랜드 바 (베이커리)",
-      "is_fictional": true,
-      "accuracy_level": 2,
-      "royalty_rate": {
-        "low": 4,
-        "high": 6,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 3,
-        "high": 5,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 20,
-        "high": 40,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
+      "id": "paris_baguette",
+      "name": "파리바게뜨",
+      "is_fictional": false,
       "industry": "베이커리",
       "logo_hint": {
         "shape": "circle",
         "tone": "lavender"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 1500,
-          "high": 2500,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "99.17㎡ (30평형)",
+        "tax": "부가세 별도 · 계약이행보증금은 부가세 대상 아님",
+        "note": "본사가 공개한 2025년 정보공개서 정기변경 신청본 기준이에요. 제조 방식에 따라 교육비가 추가될 수 있어요.",
+        "total": {
+          "low": 22150,
+          "high": 27760,
           "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "source_id": "paris_baguette_6_opening",
+          "year": 2025,
+          "status": "조건부"
         },
-        "education": {
-          "low": 400,
-          "high": 600,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 6000,
-          "high": 9000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 4000,
-          "high": 6000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 1000,
-          "high": 1500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        }
+        "items": [
+          {
+            "label": "계약이행보증금",
+            "low": 1000,
+            "high": 2000,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "초도 물량",
+            "low": 1350,
+            "high": 1350,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "개점비",
+            "low": 1000,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "디자인 매뉴얼",
+            "low": 300,
+            "high": 300,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 290,
+            "high": 540,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 7000,
+            "high": 8100,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "장비",
+            "low": 8200,
+            "high": 10000,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "간판",
+            "low": 800,
+            "high": 1000,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "가구",
+            "low": 1600,
+            "high": 2000,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "POS",
+            "low": 210,
+            "high": 270,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          },
+          {
+            "label": "부대설비",
+            "low": 400,
+            "high": 1200,
+            "unit": "만 원",
+            "source_id": "paris_baguette_6_opening",
+            "year": 2025,
+            "status": "조건부"
+          }
+        ]
       }
     },
     {
-      "id": "brand_g",
-      "name": "예시 브랜드 사 (주점)",
-      "is_fictional": true,
-      "accuracy_level": 1,
-      "royalty_rate": {
-        "low": 2,
-        "high": 4,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 1,
-        "high": 3,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 0,
-        "high": 0,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
+      "id": "halmaek",
+      "name": "역전할머니맥주",
+      "is_fictional": false,
       "industry": "주점",
       "logo_hint": {
         "shape": "square",
         "tone": "black"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 500,
-          "high": 1000,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "15평",
+        "tax": "부가세 별도",
+        "note": "외부 공사, 철거, 전기·가스 증설, 주방덕트, 소방 등은 별도예요.",
+        "total": {
+          "low": 7910,
+          "high": 7910,
           "unit": "만 원",
+          "source_id": "halmaek_7_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         },
-        "education": {
-          "low": 100,
-          "high": 200,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 4000,
-          "high": 6500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 1500,
-          "high": 2500,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 500,
-          "high": 1000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        }
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 700,
+            "high": 700,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비",
+            "low": 300,
+            "high": 300,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "계약이행보증금",
+            "low": 200,
+            "high": 200,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "인테리어",
+            "low": 3000,
+            "high": 3000,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "간판",
+            "low": 860,
+            "high": 860,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "주방",
+            "low": 1750,
+            "high": 1750,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "본사 초도",
+            "low": 1100,
+            "high": 1100,
+            "unit": "만 원",
+            "source_id": "halmaek_7_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ]
       }
     },
     {
-      "id": "brand_h",
-      "name": "예시 브랜드 아 (샌드위치)",
-      "is_fictional": true,
-      "accuracy_level": 2,
-      "royalty_rate": {
-        "low": 1,
-        "high": 3,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "margin_rate": {
-        "low": 0,
-        "high": 2,
-        "unit": "%",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "fixed_monthly": {
-        "low": 0,
-        "high": 0,
-        "unit": "만 원",
-        "year": null,
-        "source_id": "src_dev_placeholder",
-        "status": "가상 예시(개발용, 출처 미확인)"
-      },
-      "industry": "샌드위치",
+      "id": "isaac_toast",
+      "name": "이삭토스트",
+      "is_fictional": false,
+      "industry": "토스트·샌드위치",
       "logo_hint": {
         "shape": "triangle",
         "tone": "sage"
       },
-      "startup_cost": {
-        "franchise_fee": {
-          "low": 500,
-          "high": 800,
+      "accuracy_level": 1,
+      "royalty_rate": null,
+      "margin_rate": null,
+      "fixed_monthly": null,
+      "startup_cost": null,
+      "opening": {
+        "area": "10평 · 교육 1인",
+        "tax": "부가세 별도",
+        "note": "본사 안내에 최초 가맹비가 없어요. 점포 임대차와 별도 공사는 합계에서 제외돼요.",
+        "total": {
+          "low": 6645,
+          "high": 6645,
           "unit": "만 원",
+          "source_id": "isaac_toast_8_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         },
-        "education": {
-          "low": 100,
-          "high": 150,
+        "items": [
+          {
+            "label": "가맹비",
+            "low": 0,
+            "high": 0,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "교육비 1인",
+            "low": 400,
+            "high": 400,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "계약이행보증금",
+            "low": 100,
+            "high": 100,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "내외장 공사",
+            "low": 3000,
+            "high": 3000,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "간판 공사",
+            "low": 741,
+            "high": 741,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "주방집기",
+            "low": 497,
+            "high": 497,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          },
+          {
+            "label": "기기·장비",
+            "low": 1907,
+            "high": 1907,
+            "unit": "만 원",
+            "source_id": "isaac_toast_8_opening",
+            "year": null,
+            "status": "조건부"
+          }
+        ],
+        "monthly_royalty": {
+          "tax": "부가세 별도",
+          "low": 15,
+          "high": 15,
           "unit": "만 원",
+          "source_id": "isaac_toast_8_opening",
           "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "interior": {
-          "low": 1500,
-          "high": 2200,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "equipment": {
-          "low": 700,
-          "high": 1000,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
-        },
-        "other": {
-          "low": 200,
-          "high": 400,
-          "unit": "만 원",
-          "year": null,
-          "source_id": "src_dev_placeholder",
-          "status": "가상 예시(개발용, 출처 미확인)"
+          "status": "조건부"
         }
       }
     }

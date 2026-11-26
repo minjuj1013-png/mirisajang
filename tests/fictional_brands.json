@@ -1,0 +1,556 @@
+[
+  {
+    "id": "brand_a",
+    "name": "예시 브랜드 가 (치킨)",
+    "is_fictional": true,
+    "accuracy_level": 2,
+    "royalty_rate": {
+      "low": 2,
+      "high": 4,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 3,
+      "high": 6,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 0,
+      "high": 0,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "치킨",
+    "logo_hint": {
+      "shape": "circle",
+      "tone": "orange"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 1000,
+        "high": 1500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 200,
+        "high": 300,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 3000,
+        "high": 5000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 1500,
+        "high": 2500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 500,
+        "high": 1000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_b",
+    "name": "예시 브랜드 나 (분식)",
+    "is_fictional": true,
+    "accuracy_level": 2,
+    "royalty_rate": {
+      "low": 3,
+      "high": 5,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 0,
+      "high": 3,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 0,
+      "high": 0,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "분식",
+    "logo_hint": {
+      "shape": "square",
+      "tone": "sage"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 300,
+        "high": 500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 100,
+        "high": 200,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 1500,
+        "high": 2500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 800,
+        "high": 1200,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 300,
+        "high": 500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_c",
+    "name": "예시 브랜드 다 (카페)",
+    "is_fictional": true,
+    "accuracy_level": 1,
+    "royalty_rate": {
+      "low": 5,
+      "high": 7,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 1,
+      "high": 3,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 10,
+      "high": 20,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "카페",
+    "logo_hint": {
+      "shape": "triangle",
+      "tone": "lavender"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 1000,
+        "high": 2000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 300,
+        "high": 500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 5000,
+        "high": 8000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 3000,
+        "high": 4500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 700,
+        "high": 1500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_d",
+    "name": "예시 브랜드 라 (자료 없음 시험용)",
+    "is_fictional": true,
+    "accuracy_level": 0,
+    "royalty_rate": null,
+    "margin_rate": null,
+    "fixed_monthly": null,
+    "industry": "일반 음식점",
+    "logo_hint": {
+      "shape": "diamond",
+      "tone": "black"
+    },
+    "startup_cost": null
+  },
+  {
+    "id": "brand_e",
+    "name": "예시 브랜드 마 (한식)",
+    "is_fictional": true,
+    "accuracy_level": 2,
+    "royalty_rate": {
+      "low": 3,
+      "high": 5,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 2,
+      "high": 4,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 0,
+      "high": 0,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "한식",
+    "logo_hint": {
+      "shape": "hexagon",
+      "tone": "orange"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 800,
+        "high": 1200,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 150,
+        "high": 250,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 3500,
+        "high": 5500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 2000,
+        "high": 3000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 500,
+        "high": 800,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_f",
+    "name": "예시 브랜드 바 (베이커리)",
+    "is_fictional": true,
+    "accuracy_level": 2,
+    "royalty_rate": {
+      "low": 4,
+      "high": 6,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 3,
+      "high": 5,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 20,
+      "high": 40,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "베이커리",
+    "logo_hint": {
+      "shape": "circle",
+      "tone": "lavender"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 1500,
+        "high": 2500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 400,
+        "high": 600,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 6000,
+        "high": 9000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 4000,
+        "high": 6000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 1000,
+        "high": 1500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_g",
+    "name": "예시 브랜드 사 (주점)",
+    "is_fictional": true,
+    "accuracy_level": 1,
+    "royalty_rate": {
+      "low": 2,
+      "high": 4,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 1,
+      "high": 3,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 0,
+      "high": 0,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "주점",
+    "logo_hint": {
+      "shape": "square",
+      "tone": "black"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 500,
+        "high": 1000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 100,
+        "high": 200,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 4000,
+        "high": 6500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 1500,
+        "high": 2500,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 500,
+        "high": 1000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  },
+  {
+    "id": "brand_h",
+    "name": "예시 브랜드 아 (샌드위치)",
+    "is_fictional": true,
+    "accuracy_level": 2,
+    "royalty_rate": {
+      "low": 1,
+      "high": 3,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "margin_rate": {
+      "low": 0,
+      "high": 2,
+      "unit": "%",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "fixed_monthly": {
+      "low": 0,
+      "high": 0,
+      "unit": "만 원",
+      "year": null,
+      "source_id": "src_dev_placeholder",
+      "status": "가상 예시(개발용, 출처 미확인)"
+    },
+    "industry": "샌드위치",
+    "logo_hint": {
+      "shape": "triangle",
+      "tone": "sage"
+    },
+    "startup_cost": {
+      "franchise_fee": {
+        "low": 500,
+        "high": 800,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "education": {
+        "low": 100,
+        "high": 150,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "interior": {
+        "low": 1500,
+        "high": 2200,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "equipment": {
+        "low": 700,
+        "high": 1000,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      },
+      "other": {
+        "low": 200,
+        "high": 400,
+        "unit": "만 원",
+        "year": null,
+        "source_id": "src_dev_placeholder",
+        "status": "가상 예시(개발용, 출처 미확인)"
+      }
+    }
+  }
+]

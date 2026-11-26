@@ -32,6 +32,32 @@
     var text = { fit: T.r.countText.ok, tight: T.r.countText.tight, short: T.r.countText.short, nodata: T.r.countText.insufficient }[s];
     return h(C.Badge, { tone: tone, size: 'md' }, text);
   }
+  function publishedPrice(amount) {
+    function won(n) { return Math.round(n * 10000).toLocaleString('ko-KR') + '원'; }
+    return amount.low === amount.high ? won(amount.low) : won(amount.low) + ' ~ ' + won(amount.high);
+  }
+  function sourceLink(source) {
+    return h('a', { href: source.url, target: '_blank', rel: 'noopener noreferrer' }, source.name);
+  }
+  function PublishedOpening(props) {
+    var opening = props.opening, source = opening.source, royalty = opening.monthly_royalty;
+    return h(C.Card, { className: 'detail-wide' },
+      h('h4', { className: 'heading-3' }, '본사 공개 개설비'),
+      h('p', { className: 'number-lg ms-num' }, publishedPrice(opening.total)),
+      h('p', { className: 'body-sm ink-muted' }, opening.area + ' · ' + opening.tax),
+      h('p', { className: 'body-sm' }, '내 자본 ' + man(props.capital) + '원 · ' + opening.note),
+      h('details', null,
+        h('summary', null, '개설비 항목별 금액'),
+        h('ul', { className: 'list-bullets' }, opening.items.map(function (item) {
+          return h('li', { key: item.label }, item.label + ' ' + publishedPrice(item));
+        }))),
+      h('p', { className: 'body-sm' },
+        royalty ? h(React.Fragment, null, '공개 월 로열티 ' + publishedPrice(royalty) + ' · ' + royalty.tax,
+          opening.disclosure ? h(React.Fragment, null, ' · ', sourceLink(royalty.source)) : null) : '월 로열티 미확인',
+        ' · 차액가맹금 미확인'),
+      h('p', { className: 'body-sm' }, sourceLink(source),
+        source.year ? ' · ' + source.year + '년 자료' : '', ' · ' + source.checked_at + ' 확인'));
+  }
   function limitText(f) { return f.unit === '만 원' ? man(f.min) + ' ~ ' + man(f.max) + ' 원' : f.min + ' ~ ' + f.max + ' ' + f.unit; }
 
   // ---------- 개수 요약 막대 (글자 + 도형 + 무늬) ----------
@@ -224,13 +250,14 @@
       est.status === 'ok_user_values' ? h(C.Notice, { tone: 'info', title: T.d.userValuesTitle }, T.d.userValues) : null,
       overridden.length ? h(C.Notice, { tone: 'info', title: T.d.editedTitle }, T.d.editedBody(overNames)) : null,
       h('div', { className: 'detail-grid' },
+        est.opening_cost ? h(PublishedOpening, { opening: est.opening_cost, capital: input.capital }) : null,
         h(C.Card, { className: 'detail-wide' },
           est.profit
             ? h(C.RangeFigure, { label: T.d.profit, low: est.profit.low, high: est.profit.high, size: 'lg', note: T.d.profitNote + basis })
             : h(C.RangeFigure, { label: T.d.profit, size: 'lg' }),
           est.profit ? h(C.RangeBar, { low: est.profit.low, high: est.profit.high, title: T.d.profit + ' 범위' }) : null,
           est.profit && est.profit.low < 0 && est.profit.high > 0 ? h('p', { className: 'body', style: { margin: 0 } }, T.d.mixed) : null),
-        h(C.Card, null,
+        est.opening_cost ? null : h(C.Card, null,
           h(C.CapitalFitBar, { low: est.startup_cost ? est.startup_cost.low : undefined, high: est.startup_cost ? est.startup_cost.high : undefined, myCapital: input.capital, title: T.d.capitalTitle })),
         h(C.Card, null, breakEl, be && be.low != null ? h('p', { className: 'body-sm ink-muted', style: { margin: 0 } }, T.d.breakNote + basis) : null),
         h(C.Card, null,
@@ -243,18 +270,18 @@
         h(C.Card, null,
           h(C.AccuracyMeter, { level: acc.level, label: T.d.accLabel, texts: T.d.accTexts }),
           acc.level <= 1 ? h('p', { className: 'body-sm', style: { margin: '8px 0 0' } }, T.d.accLow) : null,
-          est.geo && est.geo.note ? h('p', { className: 'body-sm ink-muted', style: { margin: '8px 0 0' } }, U.clean(est.geo.note) + '.') : null)),
+          !est.opening_cost && est.geo && est.geo.note ? h('p', { className: 'body-sm ink-muted', style: { margin: '8px 0 0' } }, U.clean(est.geo.note) + '.') : null)),
       h(C.Notice, { tone: 'warn' }, T.d.contract),
       labor && labor.below_min_wage ? h(C.Notice, { tone: 'warn' }, T.d.belowMinWage) : null,
       h('div', { className: 'incl-grid' },
         h('div', null,
-          h('h4', { className: 'heading-3', style: { margin: '0 0 8px' } }, T.d.includedTitle),
+          h('h4', { className: 'heading-3', style: { margin: '0 0 8px' } }, est.opening_cost ? '월 손익 계산에 필요한 항목' : T.d.includedTitle),
           h('ul', { className: 'list-bullets' }, T.d.included.map(function (c, i) { return h('li', { key: i }, c); }))),
         h('div', null,
           h('h4', { className: 'heading-3', style: { margin: '0 0 8px' } }, T.d.excludedTitle),
           h('p', { className: 'body-sm ink-muted', style: { margin: '0 0 8px' } }, T.d.excludedLede),
           h('ul', { className: 'list-bullets' }, (props.excluded || []).map(function (c, i) { return h('li', { key: i }, U.clean(c)); })))),
-      h('p', { className: 'body-sm', style: { margin: 0 } }, T.d.paidNote + (props.brandNote ? ' ' + U.clean(props.brandNote) : '')),
+      est.opening_cost ? null : h('p', { className: 'body-sm', style: { margin: 0 } }, T.d.paidNote + (props.brandNote ? ' ' + U.clean(props.brandNote) : '')),
 
       // 값 고치기
       h(C.Card, { tone: 'emphasis', className: 'edit-card' },
@@ -336,7 +363,10 @@
         if (filter === 'insufficient') return !c.fit;
         return c.fit === filter;
       });
-      var maxHigh = cards.reduce(function (a, c) { return Math.max(a, c.startup_cost ? c.startup_cost.high : 0); }, 0);
+      var maxHigh = cards.reduce(function (a, c) {
+        var cost = c.opening_cost ? c.opening_cost.total : c.startup_cost;
+        return cost ? Math.max(a, cost.high) : a;
+      }, 0);
       var scaleMax = Math.max(maxHigh, d.capital) * 1.1;
       var sel = cards.filter(function (c) { return c.id === props.selected; })[0];
       var regionText = geo.region_label || '';
@@ -355,8 +385,7 @@
             h('li', null, T.r.chipCapital(man(d.capital) + ' 원')),
             h('li', null, regionText),
             h('li', null, T.r.chipStaff(d.staff))),
-          geo.note ? h('p', { className: 'body-sm', style: { margin: 0 } }, U.clean(geo.note) + '.') : null,
-          h(C.DataStatus, { kind: 'sample' })),
+          h(C.DataStatus, { kind: 'partial' }, opts.dev_notice)),
         // 2. 개수 요약 + 필터
         h('div', { className: 'stack' },
           h('h3', { className: 'heading-2' }, T.r.summaryTitle),
@@ -368,9 +397,14 @@
           h('p', { className: 'body-sm ink-muted', style: { margin: 0 } }, T.r.cardHint),
           shown.length
             ? h('div', { className: 'brand-grid', role: 'list', 'aria-label': T.r.gridLabel }, shown.map(function (c) {
+              var opening = c.opening_cost;
               return h('div', { key: c.id, role: 'listitem' }, h(C.BrandCard, {
                 id: c.id, name: brandName(c.name), category: c.industry, logo: logoOf(c),
-                capital: c.startup_cost ? { low: c.startup_cost.low, high: c.startup_cost.high } : null,
+                capital: opening ? opening.total : c.startup_cost,
+                capitalLabel: opening ? '본사 공개 개설비' : undefined,
+                capitalText: opening ? publishedPrice(opening.total) : undefined,
+                capitalNote: opening ? opening.area + ' · ' + opening.tax : undefined,
+                statusText: opening ? T.r.countText[c.fit || 'insufficient'] : undefined,
                 netProfit: c.summary && c.summary.profit ? { low: c.summary.profit.low, high: c.summary.profit.high } : null,
                 myCapital: d.capital, status: statusOf(c), scaleMax: scaleMax,
                 selected: props.selected === c.id, onSelect: props.onPick
