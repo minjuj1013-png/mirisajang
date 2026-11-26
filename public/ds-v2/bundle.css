@@ -282,9 +282,9 @@ span.ms-brand__name { cursor: default; } span.ms-brand__name::after { content: n
 .ms-cmp thead th.ms-cmp__premium { background: var(--brand-soft); color: var(--brand-strong); }
 .ms-cmp tbody th { font-weight: 500; width: 40%; }
 .ms-cmp tbody tr:last-child th, .ms-cmp tbody tr:last-child td { border-bottom: 0; }
-.ms-cmp__yes { font-weight: 700; color: var(--success-fg); } .ms-cmp__no { color: var(--ink-muted); }
+.ms-cmp__yes { color: var(--success-fg); } .ms-cmp__no { color: var(--ink-muted); }
 .ms-cmp td.ms-cmp__premium { background: rgba(230, 237, 252, 0.45); }
-.ms-cmp__mark { display: inline-flex; align-items: center; gap: var(--space-1); }
+.ms-cmp__mark { display: inline-flex; align-items: center; gap: var(--space-1); font-weight: 700; }
 .ms-cmp__mark svg { width: 16px; height: 16px; }
 @media (max-width: 599px) {
   .ms-cmp, .ms-cmp tbody { display: block; border: 0; background: transparent; }

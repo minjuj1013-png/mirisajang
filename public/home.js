@@ -162,10 +162,11 @@
     var dummy = T.teaser.dummyItems.map(function (l) { return { label: l, value: 1 }; }); // 모두 같은 값(균등한 더미)
     var cmp = T.teaser.dummyBrands.map(function (l) { return { label: l, value: 1 }; });
     return h('div', { className: 'teaser' },
-      h('h3', { className: 'heading-2' }, T.teaser.title, ' ', h(C.Badge, { tone: 'locked' })),
+      h('h3', { className: 'heading-2' }, T.teaser.title),
       h('p', { className: 'body ink-muted', style: { margin: '0 0 16px' } }, T.teaser.lede),
       h(C.LockedBlur, {
         title: T.teaser.lockTitle, description: T.teaser.lockDesc, minHeight: 420,
+        badge: h(C.Badge, { tone: 'neutral' }, T.p.badge),
         action: h(C.Button, { onClick: toPremium }, T.teaser.button)
       },
         h('div', { className: 'teaser__body' },

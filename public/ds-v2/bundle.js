@@ -50,6 +50,7 @@
   function svg(vb, children, extra) { return h('svg', Object.assign({ viewBox: vb, width: 16, height: 16, 'aria-hidden': 'true', focusable: 'false', fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' }, extra || {}), children); }
   var Icon = {
     check: function () { return svg('0 0 16 16', h('path', { d: 'M3 8.5l3.2 3.2L13 4.8' })); },
+    cross: function () { return svg('0 0 16 16', h('path', { d: 'M4 4l8 8M12 4l-8 8' })); },
     chev: function () { return svg('0 0 20 20', h('path', { d: 'M5 7.5l5 5 5-5' }), { width: 20, height: 20 }); },
     lock: function () { return svg('0 0 16 16', [h('rect', { key: 'a', x: 3, y: 7, width: 10, height: 7, rx: 2, fill: 'currentColor', stroke: 'none' }), h('path', { key: 'b', d: 'M5.2 7V5.2a2.8 2.8 0 015.6 0V7' })]); },
     dash: function () { return svg('0 0 16 16', h('path', { d: 'M4 8h8' })); },
@@ -484,15 +485,15 @@
       h('div', { className: 'ms-lock__body', 'aria-hidden': 'true', inert: '' }, p.children),
       h('div', { className: 'ms-lock__veil' },
         h('div', { className: 'ms-lock__plate', role: 'group', 'aria-label': p.title || '프리미엄에서 볼 수 있어요' },
-          h(Badge, { tone: 'locked' }),
+          p.badge || h(Badge, { tone: 'locked' }),
           h('p', { className: 'ms-lock__title' }, p.title || '프리미엄에서 볼 수 있어요'),
           p.description ? h('p', { className: 'ms-lock__desc' }, p.description) : null,
           p.action || null)));
   }
 
-  function cell(v, id) {
+  function cell(v) {
     if (v === true) return h('span', { className: 'ms-cmp__mark ms-cmp__yes' }, Icon.check(), '포함');
-    if (v === false || v == null) return h('span', { className: 'ms-cmp__mark ms-cmp__no' }, Icon.dash(), '없음');
+    if (v === false || v == null) return h('span', { className: 'ms-cmp__mark ms-cmp__no' }, Icon.cross(), '미포함');
     return v;
   }
   function CompareTable(p) {
@@ -518,7 +519,7 @@
     var kind = p.kind === 'real' ? 'real' : 'sample';
     if (p.kind !== 'real' && p.kind !== 'sample' && window.console) console.warn('TestimonialCard: kind must be "sample" or "real". Showing the sample label.');
     return h('figure', { className: cx('ms-quote', p.className), style: { margin: 0 } },
-      h('div', { className: 'ms-quote__top' }, kind === 'sample' ? h(Badge, { tone: 'warning' }, '가상 예시') : h(Badge, { tone: 'neutral' }, '이용자 후기')),
+      h('div', { className: 'ms-quote__top' }, kind === 'sample' ? h(Badge, { tone: 'warning' }, p.sampleLabel || '가상 예시') : h(Badge, { tone: 'neutral' }, '이용자 후기')),
       h('blockquote', { className: 'ms-quote__text', style: { margin: 0 } }, p.quote),
       h('figcaption', { className: 'ms-quote__who' }, p.logo || h(ShapeLogo, { shape: p.shape || 'circle', tone: p.tone || 'ink', size: 'sm', initial: (p.name || '?').charAt(0), label: '아바타 자리' }),
         h('div', null, h('div', { className: 'ms-quote__name' }, p.name), p.role ? h('div', { className: 'ms-quote__role' }, p.role) : null)));
