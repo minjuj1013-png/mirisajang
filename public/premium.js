@@ -110,7 +110,7 @@
       h('div', { className: 'ms-container', ref: ref },
         h('h2', { className: 'heading-1' }, P.compareTitle),
         h('p', { className: 'body ink-muted', style: { margin: '8px 0 24px' } }, P.compareLede),
-        h(C.CompareTable, { caption: P.compareCaption, columns: { free: '무료', premium: '프리미엄 베타' }, rows: rows })));
+        h(C.CompareTable, { caption: P.compareCaption, columns: { free: '무료', premium: '프리미엄 리포트' }, rows: rows })));
   }
 
   function PriceSection(props) {
