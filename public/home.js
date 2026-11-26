@@ -12,18 +12,29 @@
   var useRef = React.useRef;
   var man = C.fmt.man;
 
-  var CAP_MIN = 500, CAP_MAX = 100000;
+  var CAP_MIN = 500, CAP_MAX = 100000, BRAND_PAGE_SIZE = 4;
   var TONE_MAP = { orange: 'accent', lavender: 'brand', sage: 'teal', black: 'ink' }; // 서버의 로고 힌트 -> 도형 로고 색
   var FIT_MAP = { ok: 'fit', tight: 'tight', short: 'short' };
+  // 각 가맹본부 공식 사이트에서 사용 중인 브랜드 이미지.
+  var BRAND_LOGOS = {
+    kyochon: 'kyochon.png', jaws: 'jaws.png', mega_mgc: 'mega_mgc.png', twoway: 'twoway.png',
+    hansot: 'hansot.png', paris_baguette: 'paris_baguette.png', halmaek: 'halmaek.png', isaac_toast: 'isaac_toast.svg'
+  };
 
   // 뒤로 갔다 와도 입력과 결과가 남도록 화면 밖에 잠시 보관해요(새로고침하면 사라져요).
   var saved = { form: { capital: null, region: { sido: '', sigungu: '' }, staff: '' }, res: { phase: 'idle' }, selected: null, filter: 'all', token: 0 };
 
   function brandName(n) { return String(n || '').replace(/\s*\(.*\)\s*$/, ''); } // '예시 브랜드 가 (치킨)' -> '예시 브랜드 가'
   function brandInitial(n) { var p = brandName(n).split(' '); return p[p.length - 1].charAt(0); }
-  function logoOf(b, size) {
-    var hint = b.logo_hint || {};
-    return h(C.ShapeLogo, { shape: hint.shape || 'circle', tone: TONE_MAP[hint.tone] || 'brand', initial: brandInitial(b.name), size: size });
+  function BrandLogo(props) {
+    var brand = props.brand, failed = useState(false), logo = BRAND_LOGOS[brand.id];
+    if (logo && !failed[0]) {
+      return h('span', { className: 'brand-logo' }, h('img', {
+        src: '/brand-logos/' + logo, alt: '', onError: function () { failed[1](true); }
+      }));
+    }
+    var hint = brand.logo_hint || {};
+    return h(C.ShapeLogo, { shape: hint.shape || 'circle', tone: TONE_MAP[hint.tone] || 'brand', initial: brandInitial(brand.name), size: props.size });
   }
   function statusOf(card) { return FIT_MAP[card.fit] || 'nodata'; }
   function statusBadge(card) {
@@ -38,6 +49,41 @@
   }
   function sourceLink(source) {
     return h('a', { href: source.url, target: '_blank', rel: 'noopener noreferrer' }, source.name);
+  }
+  function budgetMoney(amount) { return man(amount) + ' 원'; }
+  function BudgetSteps(props) {
+    return h(C.Card, { className: 'stack' },
+      h('h4', { className: 'heading-3', style: { margin: 0 } }, '자본을 더하면 가능한 브랜드'),
+      h('ul', { className: 'budget-steps' }, props.steps.map(function (step) {
+        return h('li', { key: step.capital },
+          h('strong', null, budgetMoney(step.additional) + ' 추가'),
+          h('span', { className: 'body-sm ink-muted' }, '총 자본 ' + budgetMoney(step.capital)),
+          h('span', { className: 'body-sm' }, '가능한 브랜드 ' + step.possible + '곳 (+' + step.added + '곳)'));
+      })));
+  }
+  function BrandBudgetChart(props) {
+    var cost = props.cost, capital = props.capital;
+    function pct(amount) { return (100 * amount / props.max) + '%'; }
+    return h('div', { className: 'brand-budget-chart', role: 'img',
+      'aria-label': '내 자본 ' + budgetMoney(capital) + ', 공개 개설비 ' + publishedPrice(cost) },
+      h('span', { className: 'ms-brand__k', 'aria-hidden': true }, '내 자본'),
+      h('span', { className: 'brand-budget-chart__track', 'aria-hidden': true },
+        h('span', { className: 'brand-budget-chart__fill', style: { width: pct(capital) } })),
+      h('span', { className: 'ms-brand__k', 'aria-hidden': true }, '공개 개설비'),
+      h('span', { className: 'brand-budget-chart__track', 'aria-hidden': true },
+        h('span', { className: 'brand-budget-chart__fill brand-budget-chart__fill--cost', style: { width: pct(cost.high) } }),
+        cost.high > cost.low ? h('span', { className: 'brand-budget-chart__range',
+          style: { left: pct(cost.low), width: pct(cost.high - cost.low) } }) : null));
+  }
+  function capitalShortfall(card) {
+    if (!card.gap) return null;
+    if (card.fit === 'short') {
+      return '공개 개설비까지 ' + publishedPrice({ low: card.gap.shortfall_low, high: card.gap.shortfall_high }) + ' 추가';
+    }
+    if (card.fit === 'tight') {
+      return '공개 개설비 상한까지 ' + publishedPrice({ low: card.gap.shortfall_high, high: card.gap.shortfall_high }) + ' 추가';
+    }
+    return null;
   }
   function PublishedOpening(props) {
     var opening = props.opening, source = opening.source, royalty = opening.monthly_royalty;
@@ -213,7 +259,7 @@
     }
 
     var head = h('div', { className: 'detail__head' },
-      logoOf(card, 'md'),
+      h(BrandLogo, { key: card.id, brand: card, size: 'md' }),
       h('div', null,
         h('h3', { className: 'heading-2', id: 'detail-title', tabIndex: -1 }, brandName(card.name)),
         h('div', { className: 'detail__tags' }, h(C.Badge, { tone: 'neutral' }, card.industry || ''), statusBadge(card))));
@@ -333,6 +379,8 @@
   function ResultSection(props) {
     var res = props.res, opts = props.opts;
     var step = useState(0);
+    var limit = useState(BRAND_PAGE_SIZE);
+    var grid = useRef(null);
     useEffect(function () {
       if (res.phase !== 'loading') return undefined;
       step[1](0);
@@ -358,11 +406,24 @@
       var counts = d.counts || {};
       var geo = d.geo || {};
       var filter = props.filter;
-      var shown = cards.filter(function (c) {
+      var filtered = cards.filter(function (c) {
         if (filter === 'all') return true;
         if (filter === 'insufficient') return !c.fit;
         return c.fit === filter;
       });
+      var shown = filtered.slice(0, limit[0]);
+      var remaining = filtered.length - shown.length;
+      var budgetSteps = d.capital_steps || [];
+      function showMore() {
+        limit[1](limit[0] + BRAND_PAGE_SIZE);
+        if (remaining <= BRAND_PAGE_SIZE) {
+          requestAnimationFrame(function () {
+            var next = grid.current && grid.current.children[shown.length];
+            var button = next && next.querySelector('button');
+            if (button) button.focus();
+          });
+        }
+      }
       var maxHigh = cards.reduce(function (a, c) {
         var cost = c.opening_cost ? c.opening_cost.total : c.startup_cost;
         return cost ? Math.max(a, cost.high) : a;
@@ -388,29 +449,38 @@
           h(C.DataStatus, { kind: 'partial' }, opts.dev_notice)),
         // 2. 개수 요약 + 필터
         h('div', { className: 'stack' },
-          h('h3', { className: 'heading-2' }, T.r.summaryTitle),
+          h('h3', { className: 'heading-2' }, T.r.summaryTitle(counts.ok || 0)),
           h('p', { className: 'body ink-muted', style: { margin: 0 } }, T.r.summaryLede),
           h(StatusBar, { counts: counts }),
-          h(C.FilterChips, { label: T.r.filterLabel, options: filterOpts, value: filter, onChange: props.setFilter })),
+          budgetSteps.length ? h(BudgetSteps, { steps: budgetSteps }) : null,
+          h(C.FilterChips, { label: T.r.filterLabel, options: filterOpts, value: filter, onChange: function (value) {
+            props.setFilter(value);
+            limit[1](BRAND_PAGE_SIZE);
+          } })),
         // 3. 카드 목록
         h('div', { className: 'stack' },
           h('p', { className: 'body-sm ink-muted', style: { margin: 0 } }, T.r.cardHint),
           shown.length
-            ? h('div', { className: 'brand-grid', role: 'list', 'aria-label': T.r.gridLabel }, shown.map(function (c) {
+            ? h('div', { ref: grid, id: 'brand-grid', className: 'brand-grid', role: 'list', 'aria-label': T.r.gridLabel }, shown.map(function (c) {
               var opening = c.opening_cost;
               return h('div', { key: c.id, role: 'listitem' }, h(C.BrandCard, {
-                id: c.id, name: brandName(c.name), category: c.industry, logo: logoOf(c),
+                id: c.id, name: brandName(c.name), category: c.industry, logo: h(BrandLogo, { brand: c }),
                 capital: opening ? opening.total : c.startup_cost,
                 capitalLabel: opening ? '본사 공개 개설비' : undefined,
                 capitalText: opening ? publishedPrice(opening.total) : undefined,
                 capitalNote: opening ? opening.area + ' · ' + opening.tax : undefined,
+                capitalChart: opening ? h(BrandBudgetChart, { cost: opening.total, capital: d.capital, max: scaleMax }) : null,
+                capitalGap: opening ? capitalShortfall(c) : null,
                 statusText: opening ? T.r.countText[c.fit || 'insufficient'] : undefined,
                 netProfit: c.summary && c.summary.profit ? { low: c.summary.profit.low, high: c.summary.profit.high } : null,
                 myCapital: d.capital, status: statusOf(c), scaleMax: scaleMax,
                 selected: props.selected === c.id, onSelect: props.onPick
               }));
             }))
-            : h('p', { className: 'body' }, T.r.filterNone)),
+            : h('p', { className: 'body' }, T.r.filterNone),
+          remaining > 0 ? h('div', { className: 'brand-more' }, h(C.Button, {
+            variant: 'secondary', onClick: showMore
+          }, '브랜드 더보기 (+' + Math.min(BRAND_PAGE_SIZE, remaining) + '곳)')) : null),
         // 4. 자세히
         h('section', { id: 'detail', className: 'detail-section', 'aria-labelledby': 'detail-heading' },
           h('h3', { className: 'heading-2', id: 'detail-heading' }, T.d.title),
@@ -589,7 +659,6 @@
       h('section', { className: 'ms-hero home-hero' },
         h('div', { className: 'ms-hero__in' },
           h('h1', { className: 'display-xl hero-title' }, T.home.heroLines.map(function (l, i) { return h('span', { key: i, className: 'hero-line' }, l); })),
-          h('p', { className: 'body-lg hero-free' }, T.home.free),
           mobile ? null : trustEl)),
       h('div', { className: 'ms-container search-wrap', id: 'search' },
         h(C.SearchBar, {
@@ -615,7 +684,7 @@
           mobile ? trustEl : null)),
       h('div', { className: 'ms-sr', role: 'status', 'aria-live': 'polite', id: 'result-live' }, live[0]),
       res.phase !== 'idle' ? h(ResultSection, {
-        res: res, opts: opts, selected: selected, onPick: pick, filter: fl[0], setFilter: fl[1],
+        key: res.token, res: res, opts: opts, selected: selected, onPick: pick, filter: fl[0], setFilter: fl[1],
         onChange: backToSearch, onRetry: function () { runRecommend(res.input); }
       }) : null);
   }

@@ -603,6 +603,26 @@ class StaticTests(ApiTestCase):
 class PublishedBrandTests(ApiTestCase):
     seed = SEED
 
+    def test_capital_steps_and_shortfall_when_no_brand_fits(self):
+        status, result = self.post("/api/recommend", {"region": "seoul", "capital": 3000, "staff": 1})
+        self.assertEqual(status, 200)
+        self.assertEqual(result["counts"], {"ok": 0, "tight": 0, "short": 8, "insufficient": 0})
+        self.assertEqual(result["capital_steps"], [
+            {"capital": 6645, "additional": 3645, "possible": 1, "added": 1},
+            {"capital": 6700, "additional": 3700, "possible": 2, "added": 2},
+            {"capital": 7205, "additional": 4205, "possible": 3, "added": 3},
+        ])
+        first = result["brands"][0]
+        self.assertEqual(first["id"], "isaac_toast")
+        self.assertEqual(first["gap"], {"shortfall_low": 3645, "shortfall_high": 3645})
+
+    def test_capital_steps_round_up_and_include_existing_possible_brands(self):
+        status, result = self.post("/api/recommend", {"region": "seoul", "capital": 12000, "staff": 1})
+        self.assertEqual(status, 200)
+        self.assertEqual(result["counts"], {"ok": 6, "tight": 1, "short": 1, "insufficient": 0})
+        self.assertEqual(result["capital_steps"][0],
+                         {"capital": 13924, "additional": 1924, "possible": 7, "added": 1})
+
     def test_public_opening_cost_is_available_without_regional_estimates(self):
         payload = {"region": "busan", "capital": 7500, "staff": 1}
         status, recommendations = self.post("/api/recommend", payload)

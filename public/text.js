@@ -40,7 +40,6 @@
     // 홈 히어로
     home: {
       heroLines: ['브랜드 공개 개설비를', '내 자본과 비교해 보세요'],
-      free: '이 서비스는 무료로 써 볼 수 있어요(창업 비용이 0원이라는 뜻은 아니에요).',
       trust: ['추정은 범위로 보여 줘요', '자료가 없으면 자료 부족이라고 해요', '계약 전 확인용이에요'],
       cardLabel: '내 상황 입력'
     },
@@ -81,14 +80,14 @@
       failTitle: '결과를 만들지 못했어요',
       chipCapital: function (c) { return '자본 ' + c; },
       chipStaff: function (n) { return '일하는 사람 ' + n + '명'; },
-      summaryTitle: '내 자본으로 본 브랜드 8곳',
-      summaryLede: '본사 공개 개설비만 비교해요. 상가 임대차 비용과 점포별 추가 공사는 별도예요. 점포 면적과 부가세 기준은 브랜드마다 달라요.',
+      summaryTitle: function (n) { return '내 자본으로 가능한 브랜드 ' + n + '곳'; },
+      summaryLede: '공개 개설비 상한까지 충족한 브랜드를 가능으로 집계해요. 상가 임대차 비용과 추가 공사는 별도이고, 점포 면적과 부가세 기준은 브랜드마다 달라요.',
       toCards: '카드 목록으로',
       allMissingTitle: '자료가 없는 지역이에요',
       allMissing: '이 지역은 아직 자료가 없어서 숫자를 만들지 않았어요. 자료가 있는 서울·경기로 바꿔 보세요.',
       changeRegion: '지역 바꾸러 가기',
       countsLabel: '내 자본과 공개 개설비를 비교한 브랜드 수',
-      countText: { ok: '공개 비용 이상', tight: '공개 비용 범위 안', short: '공개 비용 미만', insufficient: '자료 부족' },
+      countText: { ok: '내 자본으로 가능', tight: '빠듯해요', short: '자본이 모자라요', insufficient: '자료 부족' },
       filterLabel: '브랜드 거르기',
       filterAll: '전체',
       filterNone: '이 분류에는 브랜드가 없어요.',

@@ -470,8 +470,9 @@
       h('div', { className: 'ms-brand__row' }, h('span', { className: 'ms-brand__k' }, (p.capitalLabel || '필요 자본') + ' ', hasCap && !p.capitalLabel ? h(Badge, { tone: 'estimate' }) : null),
         hasCap ? h('span', { className: 'ms-brand__v' }, p.capitalText || range(p.capital.low, p.capital.high)) : h('span', { className: 'ms-brand__v--missing' }, '자료 부족'),
         p.capitalNote ? h('span', { className: 'ms-brand__k' }, p.capitalNote) : null,
-        hasCap ? h(CapitalFitBar, { low: p.capital.low, high: p.capital.high, myCapital: p.myCapital, max: p.scaleMax, compact: true, rangeName: p.capitalLabel }) : null,
-        hasCap && isNum(p.myCapital) ? h('span', { className: 'ms-brand__k' }, '내 자본 ' + manWon(p.myCapital)) : null),
+        p.capitalChart || (hasCap ? h(CapitalFitBar, { low: p.capital.low, high: p.capital.high, myCapital: p.myCapital, max: p.scaleMax, compact: true, rangeName: p.capitalLabel }) : null),
+        p.capitalGap ? h('strong', { className: 'body-sm' }, p.capitalGap) : null,
+        hasCap && !p.capitalChart && isNum(p.myCapital) ? h('span', { className: 'ms-brand__k' }, '내 자본 ' + manWon(p.myCapital)) : null),
       h('div', { className: 'ms-brand__row' }, h('span', { className: 'ms-brand__k' }, '월 순수익 ', hasNet ? h(Badge, { tone: 'estimate' }) : null),
         hasNet ? h('span', { className: 'ms-brand__v' }, range(p.netProfit.low, p.netProfit.high)) : h('span', { className: 'ms-brand__v--missing' }, '자료 부족')));
   }

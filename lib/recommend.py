@@ -1,5 +1,9 @@
 """자본 기준 브랜드 추천 (/api/recommend). 계산은 calc.estimate를 그대로 재사용합니다."""
+import math
+from collections import Counter
+
 from lib import calc
+from lib.validate import CAPITAL_MAX
 
 FIT_ORDER = {"ok": 0, "tight": 1, "short": 2, None: 3}
 
@@ -7,6 +11,7 @@ FIT_ORDER = {"ok": 0, "tight": 1, "short": 2, None: 3}
 def recommend(seed, inp):
     """inp: validate_recommend를 통과한 {capital, region, district?, staff}."""
     cards = []
+    thresholds = Counter()
     geo = None
     data_notice = None
     for idx, brand in enumerate(seed["brands"]):
@@ -41,17 +46,31 @@ def recommend(seed, inp):
                             "data_notice": est["data_notice"]},
         }
         low = est["profit"]["low"] if est["profit"] else None
-        cards.append((FIT_ORDER[fit], 0 if low is not None else 1, -(low or 0), idx, card))
-    cards.sort(key=lambda t: t[:4])
-    ordered = [c[4] for c in cards]
+        opening = est["opening_cost"]
+        upper_cost = opening["total"]["high"] if opening else 0
+        if opening:
+            threshold = math.ceil(upper_cost)
+            if inp["capital"] < threshold <= CAPITAL_MAX:
+                thresholds[threshold] += 1
+        order = (FIT_ORDER[fit], low is None, -(low or 0), upper_cost, idx)
+        cards.append((order, card))
+    cards.sort(key=lambda item: item[0])
+    ordered = [card for _, card in cards]
     counts = {"ok": 0, "tight": 0, "short": 0, "insufficient": 0}
     for c in ordered:
         counts[c["fit"] if c["fit"] else "insufficient"] += 1
+    steps = []
+    added = 0
+    for threshold in sorted(thresholds)[:3]:
+        added += thresholds[threshold]
+        steps.append({"capital": threshold, "additional": threshold - inp["capital"],
+                      "possible": counts["ok"] + added, "added": added})
     return {
         "capital": inp["capital"],
         "staff": inp["staff"],
         "geo": geo,
         "counts": counts,
+        "capital_steps": steps,
         "brands": ordered,
         "data_notice": data_notice,
         "brand_note": calc.BRAND_NOTE,

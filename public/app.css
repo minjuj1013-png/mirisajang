@@ -34,7 +34,6 @@ p, li, dd { word-break: keep-all; overflow-wrap: break-word; }
 .home-hero { padding: var(--space-8) var(--space-6) var(--space-16); }
 .hero-title { display: grid; gap: 0; margin: 0 0 var(--space-3); }
 .hero-line { display: block; }
-.hero-free { margin: 0 0 var(--space-3); max-width: 760px; color: var(--ink-muted); }
 .trust-line { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .trust-line li { padding: var(--space-1) var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: var(--bg); font-size: 14px; line-height: 22px; color: var(--ink); }
 .search-wrap { position: relative; z-index: 2; }
@@ -46,7 +45,6 @@ p, li, dd { word-break: keep-all; overflow-wrap: break-word; }
 @media (max-width: 599px) {
   .home-hero { padding: var(--space-6) var(--space-4) var(--space-12); }
   .hero-title .hero-line { font-size: 30px; line-height: 38px; }
-  .hero-free { font-size: 16px; line-height: 26px; }
 }
 
 /* ---------- 결과 영역 ---------- */
@@ -58,6 +56,18 @@ p, li, dd { word-break: keep-all; overflow-wrap: break-word; }
 .brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); }
 .brand-grid > div { min-width: 0; }
 .brand-grid > div > .ms-brand { height: 100%; }
+.brand-grid .ms-brand__row { align-content: start; }
+.brand-logo { display: grid; place-items: center; flex: 0 0 80px; height: 52px; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.brand-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.brand-more { justify-self: center; }
+.budget-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2); }
+.budget-steps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3); }
+.budget-steps li + li { border-top: 1px solid var(--line); padding-top: var(--space-2); }
+.brand-budget-chart { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: var(--space-2); padding: var(--space-2) 0; }
+.brand-budget-chart__track { position: relative; height: 8px; overflow: hidden; border-radius: var(--radius-pill); background: var(--surface-sunken); }
+.brand-budget-chart__fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--brand); }
+.brand-budget-chart__fill--cost { background: var(--ink-muted); }
+.brand-budget-chart__range { position: absolute; inset-block: 0; background: repeating-linear-gradient(135deg, var(--ink-muted) 0 2px, var(--line) 2px 5px); }
 @media (max-width: 359px) { .brand-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* 개수 요약 막대: 색 + 무늬 + 글자 */
