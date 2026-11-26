@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "functions": {
+    "api/dispatch.py": { "includeFiles": "{data/seed.json,lib/**,server.py}" }
+  },
+  "rewrites": [
+    { "source": "/api/:operation(options|estimate|recommend|events|feedback|preorder|stats)", "destination": "/api/dispatch?operation=:operation" },
+    { "source": "/stats", "destination": "/stats.html" }
+  ]
+}

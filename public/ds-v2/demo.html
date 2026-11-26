@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미리사장 디자인 시스템 데모 (가상 샘플 값)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="bundle.css">
+<style>
+ body { margin: 0; background: var(--bg); }
+ .demo-section { padding: var(--space-12) 0 var(--space-4); }
+ .demo-section > h2 { margin: 0 0 var(--space-6); }
+ .demo-item { margin-bottom: var(--space-10); }
+ .demo-item__head { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: baseline; margin-bottom: var(--space-3); }
+ .demo-item__head code { font: 700 14px/20px ui-monospace, Menlo, monospace; background: var(--surface-soft); padding: 2px 8px; border-radius: var(--radius-sm); }
+ .demo-item__head p { margin: 0; color: var(--ink-muted); font-size: 14px; flex-basis: 100%; }
+ .demo-item__box { border: 1px dashed var(--line-strong); border-radius: var(--radius-md); padding: var(--space-6); overflow-x: auto; background: var(--bg); }
+ .demo-item__box > div { min-width: 0; }
+ @media (max-width: 599px) { .demo-item__box { padding: var(--space-3); } }
+</style>
+</head>
+<body class="ms-root">
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="bundle.js"></script>
+<script>
+const M = window.MiriSajang, h = React.createElement;
+const Ex_SiteHeader = (function(){ function Example() { return h(M.SiteHeader, { items: [{label:'홈',href:'#',current:true},{label:'프리미엄',href:'#'},{label:'글',href:'#'},{label:'자주 묻는 질문',href:'#'}] }); }
+ return Example; })();
+const Ex_SiteFooter = (function(){ function Example() { return h(M.SiteFooter, { about:'창업 전에 내 자본으로 가능한지 추정 범위로 먼저 확인해요.', links:[{label:'홈',href:'#'},{label:'프리미엄',href:'#'},{label:'글',href:'#'},{label:'자주 묻는 질문',href:'#'}], notes:['모든 금액은 추정 범위이며 실제와 다를 수 있어요.','계약 전에는 본사와 가맹거래사에게 꼭 확인해 주세요.','지금 보이는 브랜드 수치는 시험용 가상 데이터예요.'], privacy:'입력한 자본 정보는 계산에만 쓰고 이름·연락처는 받지 않아요.' }); }
+ return Example; })();
+const Ex_Button = (function(){ function Example() { return h('div', {style:{display:'flex',gap:12,flexWrap:'wrap',alignItems:'center'}},
+  h(M.Button, null, '결과 보기'), h(M.Button, {variant:'secondary'}, '다시 입력'), h(M.Button, {variant:'link', href:'#'}, '계산 방법 보기'),
+  h(M.Button, {size:'sm'}, '작게'), h(M.Button, {size:'lg'}, '크게'), h(M.Button, {disabled:true}, '비활성')); }
+ return Example; })();
+const Ex_Badge = (function(){ function Example() { return h('div', {style:{display:'flex',gap:8,flexWrap:'wrap'}},
+  h(M.Badge, {tone:'estimate'}), h(M.Badge, {tone:'locked'}), h(M.Badge, {tone:'ai'}), h(M.Badge, {tone:'success'}, '확인됨'), h(M.Badge, {tone:'warning'}, '빠듯해요'), h(M.Badge, {tone:'danger'}, '자본이 모자라요'), h(M.Badge, {tone:'neutral'}, '자료 부족')); }
+ return Example; })();
+const Ex_Notice = (function(){ function Example() { return h('div', {style:{display:'grid',gap:12}},
+  h(M.Notice, {tone:'info', title:'입력 안내'}, '필요 자본은 보증금·인테리어·장비를 합친 추정 범위예요.'),
+  h(M.Notice, {tone:'warn', title:'계약 전에 확인해 주세요'}, '계약 전에는 본사와 가맹거래사에게 비용과 조건을 확인해 주세요.'),
+  h(M.Notice, {tone:'danger', title:'계산하지 못했어요'}, '자본 금액을 숫자로 입력해 주세요.'),
+  h(M.Notice, {tone:'ai', status:'sample', title:'AI 코멘트 예시'}, '입력값과 계산 결과 안에서만 이야기해요.')); }
+ return Example; })();
+const Ex_Chip = (function(){ function Example() { const [on,set]=React.useState(true); return h('div',{style:{display:'flex',gap:8}}, h(M.Chip,{selected:on,onClick:()=>set(!on)},'치킨'), h(M.Chip,{selected:!on,onClick:()=>set(!on)},'카페'), h(M.Chip,{disabled:true},'준비 중')); }
+ return Example; })();
+const Ex_FilterChips = (function(){ function Example() { const [v,set]=React.useState('all'); return h(M.FilterChips,{label:'업종',value:v,onChange:set,options:[{value:'all',label:'전체'},{value:'chicken',label:'치킨'},{value:'cafe',label:'카페'},{value:'snack',label:'분식'}]}); }
+ return Example; })();
+const Ex_Tabs = (function(){ function Example() { return h(M.Tabs,{label:'결과 보기',tabs:[{id:'a',label:'요약',content:'월 순수익 추정 범위를 먼저 보여줘요.'},{id:'b',label:'비용 구조 (유료)',content:'항목별 비용은 프리미엄에서 볼 수 있어요.'}]}); }
+ return Example; })();
+const Ex_Accordion = (function(){ function Example() { return h(M.Accordion,{defaultOpenIndex:0,items:[{q:'금액이 정확한가요?',a:'정확한 금액이 아니라 추정 범위예요. 계약 전에 본사에 확인해 주세요.'},{q:'무료로 어디까지 볼 수 있나요?',a:'추천 브랜드 카드, 월 순수익 범위, 손익분기점, 인건비까지 볼 수 있어요.'},{q:'입력한 정보는 저장되나요?',a:'계산에만 쓰고 이름이나 연락처는 받지 않아요.'}]}); }
+ return Example; })();
+const Ex_Card = (function(){ function Example() { return h('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:16}}, h(M.Card,null,h('b',null,'기본 카드'),h('p',{style:{margin:'8px 0 0',color:'var(--ink-muted)'}},'흰 바탕, 얇은 테두리, 부드러운 그림자예요.')), h(M.Card,{tone:'emphasis'},h('b',null,'강조 카드'),h('p',{style:{margin:'8px 0 0'}},'가장 먼저 봐야 할 내용에 써요.'))); }
+ return Example; })();
+const Ex_Skeleton = (function(){ function Example() { return h('div',{style:{display:'grid',gap:16,maxWidth:420}}, h(M.Skeleton,{width:160,height:28}), h(M.Skeleton,{lines:3}), h(M.Skeleton,{width:48,height:48,circle:true})); }
+ return Example; })();
+const Ex_Divider = (function(){ function Example() { return h('div',null, h('p',{style:{margin:0}},'위 내용'), h(M.Divider), h('p',{style:{margin:0}},'아래 내용'), h(M.Divider,{label:'또는'})); }
+ return Example; })();
+const Ex_SelectField = (function(){ function Example() { const [v,set]=React.useState(''); return h('div',{style:{display:'grid',gap:16,maxWidth:360}}, h(M.SelectField,{label:'업종',placeholder:'업종을 골라 주세요',hint:'가장 가까운 업종을 골라요.',value:v,onChange:set,options:['치킨','카페','분식']}), h(M.SelectField,{label:'지역',error:'지역을 골라 주세요.',options:['서울'],value:''})); }
+ return Example; })();
+const Ex_NumberField = (function(){ function Example() { const [v,set]=React.useState(3000); return h('div',{style:{maxWidth:360}}, h(M.NumberField,{label:'내 자본',value:v,onChange:set,min:500,max:100000,hint:'쓸 수 있는 돈을 적어 주세요.',presets:[1000,3000,5000,10000]})); }
+ return Example; })();
+const Ex_RegionSelect = (function(){ function Example() { const [v,set]=React.useState({sido:'',sigungu:''}); return h(M.RegionSelect,{value:v,onChange:set,regions:{'서울특별시':['강남구','마포구','성동구'],'경기도':['성남시','수원시']}}); }
+ return Example; })();
+const Ex_SearchBar = (function(){ function Example() { const [a,setA]=React.useState(''); const [b,setB]=React.useState(3000); const [r,setR]=React.useState(''); return h('div',{style:{paddingTop:40}}, h(M.SearchBar,{overlap:false,slots:[
+  h(M.SelectField,{variant:'bare',label:'업종',placeholder:'선택',options:['치킨','카페','분식'],value:a,onChange:setA}),
+  h(M.NumberField,{variant:'bare',label:'내 자본',value:b,onChange:setB}),
+  h(M.SelectField,{variant:'bare',label:'지역',placeholder:'선택',options:['서울','경기'],value:r,onChange:setR})], onSubmit:function(){}})); }
+ return Example; })();
+const Ex_ShapeLogo = (function(){ function Example() { const shapes=['circle','square','triangle','diamond','hexagon','pill']; const tones=['brand','ink','accent','teal','sand']; return h('div',{style:{display:'flex',gap:12,flexWrap:'wrap',alignItems:'center'}}, shapes.map((s,i)=>h(M.ShapeLogo,{key:s,shape:s,tone:tones[i%5],initial:'가'})), h(M.ShapeLogo,{shape:'circle',size:'sm'}), h(M.ShapeLogo,{shape:'square',size:'lg',tone:'ink',initial:'미'})); }
+ return Example; })();
+const Ex_BrandCard = (function(){ function Example() { const [sel,set]=React.useState('a'); const cards=[{id:'a',name:'가상 브랜드 A',category:'치킨',capital:{low:2800,high:3600},netProfit:{low:180,high:320},shape:'circle',tone:'brand'},{id:'b',name:'가상 브랜드 B',category:'카페',capital:{low:4200,high:6000},netProfit:{low:-40,high:250},shape:'hexagon',tone:'accent'},{id:'c',name:'가상 브랜드 C',category:'분식',capital:{low:1500,high:2400},netProfit:{low:90,high:180},shape:'diamond',tone:'teal'},{id:'d',name:'가상 브랜드 D',category:'기타',shape:'square',tone:'ink'}];
+ return h('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(250px,1fr))',gap:16}}, cards.map(c=>h(M.BrandCard,{key:c.id,id:c.id,name:c.name,category:c.category,capital:c.capital,netProfit:c.netProfit,myCapital:3000,scaleMax:7000,selected:sel===c.id,onSelect:set,logo:h(M.ShapeLogo,{shape:c.shape,tone:c.tone,initial:'가'})}))); }
+ return Example; })();
+const Ex_RangeFigure = (function(){ function Example() { return h('div',{style:{display:'grid',gap:24}}, h(M.RangeFigure,{label:'월 순수익',low:180,high:320,size:'lg',note:'가상 데이터 기준 추정이에요.'}), h(M.RangeFigure,{label:'필요 자본',low:12000,high:18000}), h(M.RangeFigure,{label:'인건비'})); }
+ return Example; })();
+const Ex_RangeBar = (function(){ function Example() { return h('div',{style:{display:'grid',gap:24}}, h(M.RangeBar,{title:'월 순수익',low:-120,high:340}), h(M.RangeBar,{title:'월 순수익 (이익만)',low:90,high:260})); }
+ return Example; })();
+const Ex_CapitalFitBar = (function(){ function Example() { return h('div',{style:{display:'grid',gap:24}}, h(M.CapitalFitBar,{low:2800,high:3600,myCapital:3000}), h(M.CapitalFitBar,{low:4200,high:6000,myCapital:3000}), h(M.CapitalFitBar,{})); }
+ return Example; })();
+const Ex_BreakevenGauge = (function(){ function Example() { return h(M.BreakevenGauge,{low:2400,high:3100,assumed:2900}); }
+ return Example; })();
+const Ex_StackedBar = (function(){ function Example() { return h(M.StackedBar,{title:'월 비용 구조',items:[{label:'임차료',value:220},{label:'재료비',value:480},{label:'인건비',value:360},{label:'기타',value:90}]}); }
+ return Example; })();
+const Ex_BarCompare = (function(){ function Example() { return h(M.BarCompare,{title:'월 순수익 비교',items:[{label:'가상 브랜드 A',low:180,high:320},{label:'가상 브랜드 B',low:-40,high:250},{label:'가상 브랜드 C',low:90,high:180},{label:'가상 브랜드 D'}]}); }
+ return Example; })();
+const Ex_Donut = (function(){ function Example() { return h(M.Donut,{title:'초기 투자 구성',centerLabel:'합계',items:[{label:'보증금',value:1200},{label:'인테리어',value:900},{label:'장비',value:600},{label:'기타',value:300}]}); }
+ return Example; })();
+const Ex_Ledger = (function(){ function Example() { return h(M.Ledger,{title:'월 손익표',rows:[{label:'매출',value:2900},{label:'재료비',value:-960,note:'매출의 33%로 가정'},{label:'인건비',value:null},{label:'임차료',value:-220},{label:'월 순수익',value:620,kind:'total'}]}); }
+ return Example; })();
+const Ex_AccuracyMeter = (function(){ function Example() { return h('div',{style:{display:'grid',gap:12}}, [0,1,2,3].map(n=>h(M.AccuracyMeter,{key:n,level:n}))); }
+ return Example; })();
+const Ex_DataStatus = (function(){ function Example() { return h('div',{style:{display:'grid',gap:10}}, ['sample','updating','partial','verified','missing'].map(k=>h(M.DataStatus,{key:k,kind:k}))); }
+ return Example; })();
+const Ex_LockedBlur = (function(){ function Example() { return h(M.LockedBlur,{title:'비용 구조는 프리미엄에서 볼 수 있어요',description:'항목별 내역과 그래프가 열려요.',action:h(M.Button,{size:'sm'},'프리미엄 소개 보기')}, h(M.StackedBar,{title:'월 비용 구조',items:[{label:'임차료',value:220},{label:'재료비',value:480},{label:'인건비',value:360},{label:'기타',value:90}]})); }
+ return Example; })();
+const Ex_CompareTable = (function(){ function Example() { return h(M.CompareTable,{caption:'무료와 프리미엄 비교',rows:[{label:'추천 브랜드 카드',free:true,premium:true},{label:'월 순수익 범위',free:true,premium:true},{label:'손익분기점·인건비',free:true,premium:true},{label:'항목별 내역',free:false,premium:true},{label:'비용 구조 그래프',free:false,premium:true},{label:'브랜드 나란히 비교',free:false,premium:true},{label:'AI 코멘트',free:false,premium:'준비 중'}]}); }
+ return Example; })();
+const Ex_PriceCard = (function(){ function Example() { return h('div',{style:{maxWidth:360}}, h(M.PriceCard,{name:'프리미엄 리포트',badge:h(M.Badge,{tone:'locked'}),price:'가격 문구',priceNote:'1건당 결제 · 구독 아님',highlight:true,features:['항목별 비용 내역','비용 구조 그래프','브랜드 나란히 비교','체크리스트와 내보내기'],action:h(M.Button,{fullWidth:true},'프리미엄 리포트 보기')})); }
+ return Example; })();
+const Ex_TestimonialCard = (function(){ function Example() { return h('div',{style:{maxWidth:380}}, h(M.TestimonialCard,{kind:'sample',quote:'창업 전에 내 자본이 빠듯한지 미리 볼 수 있어서 좋았어요.',name:'이름 자리',role:'예비 창업자 예시'})); }
+ return Example; })();
+const Ex_AICommentCard = (function(){ function Example() { return h('div',{style:{display:'grid',gap:16}}, h(M.AICommentCard,{status:'sample',title:'AI 코멘트'},h('p',null,'입력한 자본 3,000만 원은 필요 자본 범위 아래쪽에 가까워요. 인건비 가정을 낮추면 월 순수익 범위가 넓어져요.')), h(M.AICommentCard,{status:'planned'})); }
+ return Example; })();
+const Ex_AIProgress = (function(){ function Example() { return h(M.AIProgress,{status:'sample',steps:['입력값 확인','비용 항목 계산','손익분기점 계산','코멘트 작성'],stepMs:1100}); }
+ return Example; })();
+const Ex_ProgressSteps = (function(){ function Example() { return h(M.ProgressSteps,{steps:['업종','자본','지역','결과'],current:1}); }
+ return Example; })();
+const SECTIONS = [{"group": "공통", "items": [{"name": "SiteHeader", "summary": "모든 페이지 맨 위에 놓는 헤더로, 로고 글자 칸과 메뉴 4개 링크를 한 줄로 보여줘요."}, {"name": "SiteFooter", "summary": "페이지 맨 아래에 놓는 푸터로, 서비스 소개·메뉴·안내 3줄·개인정보 안내를 담아요."}, {"name": "Button", "summary": "주 행동은 파란 primary, 보조 행동은 테두리 secondary, 글 속 이동은 link로 쓰는 버튼이에요."}, {"name": "Badge", "summary": "추정·유료·AI·성공·주의·중립 상태를 글자와 함께 보여주는 작은 알약 모양 표시예요."}, {"name": "Notice", "summary": "안내·주의·오류·AI 알림을 라벨 글자와 함께 보여주는 알림 상자예요."}, {"name": "Chip", "summary": "눌러서 켜고 끄는 알약 모양 선택 칩 하나예요."}, {"name": "FilterChips", "summary": "여러 칩 중 하나(또는 여러 개)를 고르는 묶음이에요."}, {"name": "Tabs", "summary": "화면 안에서 내용을 나눠 보여주는 탭이에요."}, {"name": "Accordion", "summary": "자주 묻는 질문을 펼치고 접는 목록으로, `details` 태그로 만들어 스크립트 없이도 동작해요."}, {"name": "Card", "summary": "정보를 한 덩어리로 묶는 둥근 카드로, 기본형과 강조형이 있어요."}, {"name": "Skeleton", "summary": "불러오는 동안 자리를 잡아주는 회색 막대예요."}, {"name": "Divider", "summary": "내용 사이를 나누는 가는 선이에요. 가운데 글자를 넣을 수 있어요."}]}, {"group": "입력", "items": [{"name": "SelectField", "summary": "라벨·도움말·오류 글이 함께 있는 선택 상자예요."}, {"name": "NumberField", "summary": "숫자만 입력받고 '만 원' 단위를 붙여주며, 범위·도움말·오류를 알려주는 입력칸이에요."}, {"name": "RegionSelect", "summary": "시·도를 고르면 시·군·구 목록이 이어서 바뀌는 2단계 지역 선택이에요."}, {"name": "SearchBar", "summary": "히어로 아래에 걸쳐 떠 있는 가로 검색 카드로, 입력 칸 3~4개와 제출 버튼이 들어가요."}]}, {"group": "브랜드", "items": [{"name": "ShapeLogo", "summary": "실제 로고가 들어갈 자리를 도형으로 표시하는 자리표시예요."}, {"name": "BrandCard", "summary": "추천 브랜드 한 곳의 이름·업종·필요 자본 범위·월 순수익 범위·내 자본 기준 상태를 보여주는 카드예요."}]}, {"group": "숫자·차트", "items": [{"name": "RangeFigure", "summary": "추정 금액을 '최소 ~ 최대' 범위의 큰 숫자로 보여주고 '추정' 배지를 붙여요."}, {"name": "RangeBar", "summary": "가로 축 위에 low~high 범위를 막대로 그리고 0 기준선과 손실·이익 구간을 글자로 나눠 보여줘요."}, {"name": "CapitalFitBar", "summary": "필요 자본 low~high 범위 위에 내 자본 위치를 마커로 찍어 보여줘요."}, {"name": "BreakevenGauge", "summary": "손익분기 매출 범위와 내가 가정한 월 매출을 한 축에서 비교해요."}, {"name": "StackedBar", "summary": "비용 구조를 가로 누적 막대 하나로 보여주고, 아래 범례에 항목·금액·비율 글자를 같이 적어요."}, {"name": "BarCompare", "summary": "브랜드 2~4개의 값을 가로 막대로 비교하고, 범위 값이면 low~high 구간을 칠해요."}, {"name": "Donut", "summary": "구성 비율을 도넛으로 보여주고 옆에 범례 글자를 붙여요(선택)."}, {"name": "Ledger", "summary": "손익표를 행 단위로 보여주는 표예요. 소계와 합계 행을 강조해요."}, {"name": "AccuracyMeter", "summary": "추정이 얼마나 믿을 만한 자료에 기대는지 0~3칸과 글자로 보여줘요."}, {"name": "DataStatus", "summary": "지금 보는 자료가 가상인지, 확인됐는지, 부족한지 알려주는 상태 줄이에요."}]}, {"group": "프리미엄·신뢰", "items": [{"name": "LockedBlur", "summary": "유료 내용을 흐리게 가리고 가운데에 잠금 안내와 버튼 자리를 보여주는 덮개예요."}, {"name": "CompareTable", "summary": "무료와 프리미엄을 1:1로 비교하는 표로, 모바일에서는 행마다 카드로 쌓여요."}, {"name": "PriceCard", "summary": "가격 문구 자리를 둔 프리미엄 가격 카드예요."}, {"name": "TestimonialCard", "summary": "후기 한 줄을 보여주는 카드예요. 실제 후기가 아니면 '가상 예시' 표시가 반드시 붙어요."}, {"name": "AICommentCard", "summary": "프리미엄 리포트에서 쓰일 AI 코멘트 카드로, 준비 중인지 가상 예시인지가 항상 글자로 보여요."}, {"name": "AIProgress", "summary": "AI 분석 단계 글자가 차례로 '완료'로 바뀌는 로딩 연출이에요."}, {"name": "ProgressSteps", "summary": "여러 단계 중 어디까지 왔는지 막대와 글자로 보여줘요."}]}];
+const EX = { SiteHeader: Ex_SiteHeader, SiteFooter: Ex_SiteFooter, Button: Ex_Button, Badge: Ex_Badge, Notice: Ex_Notice, Chip: Ex_Chip, FilterChips: Ex_FilterChips, Tabs: Ex_Tabs, Accordion: Ex_Accordion, Card: Ex_Card, Skeleton: Ex_Skeleton, Divider: Ex_Divider, SelectField: Ex_SelectField, NumberField: Ex_NumberField, RegionSelect: Ex_RegionSelect, SearchBar: Ex_SearchBar, ShapeLogo: Ex_ShapeLogo, BrandCard: Ex_BrandCard, RangeFigure: Ex_RangeFigure, RangeBar: Ex_RangeBar, CapitalFitBar: Ex_CapitalFitBar, BreakevenGauge: Ex_BreakevenGauge, StackedBar: Ex_StackedBar, BarCompare: Ex_BarCompare, Donut: Ex_Donut, Ledger: Ex_Ledger, AccuracyMeter: Ex_AccuracyMeter, DataStatus: Ex_DataStatus, LockedBlur: Ex_LockedBlur, CompareTable: Ex_CompareTable, PriceCard: Ex_PriceCard, TestimonialCard: Ex_TestimonialCard, AICommentCard: Ex_AICommentCard, AIProgress: Ex_AIProgress, ProgressSteps: Ex_ProgressSteps };
+function Page() {
+  const [a, setA] = React.useState(''), [b, setB] = React.useState(3000), [r, setR] = React.useState({sido:'',sigungu:''});
+  return h(React.Fragment, null,
+    h(M.SiteHeader, { items: [{label:'홈',href:'#',current:true},{label:'프리미엄',href:'#premium'},{label:'글',href:'#'},{label:'자주 묻는 질문',href:'#'}] }),
+    h('section', { className: 'ms-hero' }, h('div', { className: 'ms-hero__in' },
+      h('h1', { className: 'display-xl', style: { margin: '0 0 16px', maxWidth: 760 } }, '창업 전에, 내 자본으로 가능한지 미리 봐요'),
+      h('p', { className: 'body-lg', style: { margin: 0, maxWidth: 560, color: 'var(--ink-muted)' } }, '업종과 자본을 입력하면 추정 범위로 먼저 보여줘요.'))),
+    h('div', { className: 'ms-container' }, h(M.SearchBar, { weights: [1,1,2], slots: [
+      h(M.SelectField, { variant: 'bare', label: '업종', placeholder: '업종 선택', options: ['치킨','카페','분식'], value: a, onChange: setA }),
+      h(M.NumberField, { variant: 'bare', label: '내 자본', value: b, onChange: setB }),
+      h(M.RegionSelect, { variant: 'bare', regions: {'서울특별시':['강남구','마포구'],'경기도':['성남시']}, value: r, onChange: setR })
+    ], submitLabel: '결과 보기', onSubmit: function () {} })),
+    h('main', { className: 'ms-container' },
+      h('div', { style: { marginTop: 24 } }, h(M.DataStatus, { kind: 'sample' })),
+      SECTIONS.map(function (s) { return h('section', { key: s.group, className: 'demo-section' }, h('h2', { className: 'heading-1' }, s.group),
+        s.items.map(function (it) { return h('div', { key: it.name, className: 'demo-item', id: 'c-' + it.name },
+          h('div', { className: 'demo-item__head' }, h('code', null, it.name), h('p', null, it.summary)),
+          h('div', { className: 'demo-item__box' }, h(EX[it.name]))); })); })),
+    h('div', { style: { marginTop: 48 } }, h(M.SiteFooter, { about: '창업 전에 내 자본으로 가능한지 추정 범위로 먼저 확인해요.', links: [{label:'홈',href:'#'},{label:'프리미엄',href:'#'},{label:'글',href:'#'},{label:'자주 묻는 질문',href:'#'}], notes: ['모든 금액은 추정 범위이며 실제와 다를 수 있어요.','계약 전에는 본사와 가맹거래사에게 확인해 주세요.','지금 보이는 브랜드 수치는 시험용 가상 데이터예요.'], privacy: '입력한 자본 정보는 계산에만 쓰고 이름·연락처는 받지 않아요.' })));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Page));
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* 미리사장 — generated from tokens.json */
+:root, [data-theme="light"] {
+  --bg: #ffffff;
+  --surface-soft: #f3f6fb;
+  --surface-sunken: #e7edf5;
+  --line: #d5dde8;
+  --line-strong: #7b8aa0;
+  --ink: #0d1b2e;
+  --ink-muted: #44536a;
+  --ink-subtle: #566379;
+  --brand: #1a4fd0;
+  --brand-strong: #123ea6;
+  --brand-soft: #e6edfc;
+  --on-brand: #ffffff;
+  --accent: #f28a1b;
+  --focus: #1a4fd0;
+  --estimate-bg: #fff3dc;
+  --estimate-fg: #6a3d00;
+  --estimate-line: #c27a12;
+  --locked-bg: #1b2a45;
+  --locked-fg: #ffffff;
+  --locked-line: #1b2a45;
+  --ai-bg: #f6ebf8;
+  --ai-fg: #6a1f7a;
+  --ai-line: #a24bb5;
+  --danger-bg: #fdecea;
+  --danger-fg: #a8231a;
+  --danger-line: #d4483d;
+  --success-bg: #e2f4f0;
+  --success-fg: #08594e;
+  --success-line: #12907d;
+  --warning-bg: #ffeee0;
+  --warning-fg: #7d3300;
+  --warning-line: #d9690f;
+  --info-bg: var(--brand-soft);
+  --info-fg: var(--brand-strong);
+  --chart-1: #16294a;
+  --chart-2: #1a4fd0;
+  --chart-3: #e8821a;
+  --chart-4: #8fc4f0;
+  --chart-5: #f6d9a8;
+  --chart-neutral: #9aa7b8;
+  --chart-outline: #44536a;
+  --chart-grid: #d5dde8;
+  --shadow-sm: 0 1px 2px rgba(13, 27, 46, 0.06);
+  --shadow-md: 0 4px 16px rgba(13, 27, 46, 0.08);
+  --shadow-lg: 0 12px 32px rgba(13, 27, 46, 0.12);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --control-sm: 36px;
+  --control-md: 44px;
+  --control-lg: 52px;
+  --container-max: 1120px;
+  --header-h: 64px;
+  --font-sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans CJK KR", system-ui, -apple-system, sans-serif;
+  --font-display: "Figtree", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
+}
+.display-xl { font-family: var(--font-display); font-size: 56px; line-height: 64px; font-weight: 700; letter-spacing: -0.02em; }
+.display-lg { font-family: var(--font-display); font-size: 44px; line-height: 52px; font-weight: 700; letter-spacing: -0.02em; }
+.heading-1 { font-family: var(--font-display); font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.015em; }
+.heading-2 { font-family: var(--font-display); font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; }
+.heading-3 { font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: -0.005em; }
+.title { font-family: var(--font-sans); font-size: 18px; line-height: 26px; font-weight: 700; letter-spacing: 0; }
+.body-lg { font-family: var(--font-sans); font-size: 18px; line-height: 30px; font-weight: 400; letter-spacing: 0; }
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; letter-spacing: 0; }
+.body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 22px; font-weight: 400; letter-spacing: 0; }
+.label { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0; }
+.caption { font-family: var(--font-sans); font-size: 12px; line-height: 18px; font-weight: 400; letter-spacing: 0.01em; }
+.number-xl { font-family: var(--font-display); font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em; }
+.number-lg { font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; }
+.number-md { font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: 0; }

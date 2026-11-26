@@ -1,0 +1,46 @@
+/* 미리사장 — generated from tokens.json */
+:root {
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --ink-muted: #5c5c5c;
+  --rule: #0a0a0a;
+  --black: #0a0a0a;
+  --on-black: #ffffff;
+  --on-black-muted: #a3a3a3;
+  --rule-on-black: #6b6b6b;
+  --orange: #ed7b50;
+  --lavender: #c6aef6;
+  --sage: #d3ddd4;
+  --on-color: #0a0a0a;
+  --danger: #b3261e;
+  --focus: #0a0a0a;
+  --focus-on-black: #ffffff;
+  --font-sans: "Figtree", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --radius-none: 0px;
+  --radius-round: 50%;
+  --dur-fast: 200ms;
+  --dur-base: 600ms;
+  --dur-slow: 1000ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans); }
+.display { font-family: var(--font-sans); font-size: 96px; line-height: 0.95; font-weight: 500; letter-spacing: -0.04em; }
+.h1 { font-family: var(--font-sans); font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -0.04em; }
+.h2 { font-family: var(--font-sans); font-size: 40px; line-height: 1.05; font-weight: 500; letter-spacing: -0.03em; }
+.h3 { font-family: var(--font-sans); font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+.lede { font-family: var(--font-sans); font-size: 24px; line-height: 1.4; font-weight: 400; letter-spacing: -0.02em; }
+.body { font-family: var(--font-sans); font-size: 17px; line-height: 1.65; font-weight: 400; letter-spacing: -0.01em; }
+.body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 1.5; font-weight: 400; letter-spacing: 0; }
+.eyebrow { font-family: var(--font-sans); font-size: 13px; line-height: 1.2; font-weight: 700; letter-spacing: 0.1em; }
+.number-xl { font-family: var(--font-sans); font-size: 72px; line-height: 0.9; font-weight: 500; letter-spacing: -0.04em; }
